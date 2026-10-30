@@ -80,7 +80,7 @@
       top: 0;
       z-index: 40;
       min-height: calc(72px + env(safe-area-inset-top, 0px));
-      padding: env(safe-area-inset-top, 0px) clamp(18px, 4vw, 48px) 0;
+      padding: env(safe-area-inset-top, 0px) clamp(14px, 3.5vw, 44px) 0;
       background: rgba(8, 9, 13, .95);
       border-bottom: 1px solid rgba(232, 235, 248, .08);
       backdrop-filter: blur(16px);
@@ -88,7 +88,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 14px;
     }
 
     .brand {
@@ -97,14 +97,15 @@
       color: #f6f7fb;
       text-decoration: none;
       transition: opacity .18s ease;
+      flex-shrink: 0;
     }
     .brand:hover {
       opacity: .88;
     }
     .brand-mark {
       display: inline-flex;
-      width: 152px;
-      height: 39px;
+      width: 142px;
+      height: 36px;
     }
     .brand-mark svg {
       width: 100%;
@@ -115,37 +116,64 @@
     .top-nav {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 8px;
+      background: #121319;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px;
     }
-    .top-nav a {
-      position: relative;
-      padding: 24px 2px;
+    .top-nav-btn {
+      appearance: none;
+      border: 0;
+      background: transparent;
       color: var(--muted);
-      font-size: 13px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: color .18s ease;
+      font: 600 12.5px/1 'DM Sans', sans-serif;
+      padding: 9px 15px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      transition: color .16s ease, background .16s ease;
     }
-    .top-nav a:hover,
-    .top-nav a.is-active {
+    .top-nav-btn:hover {
       color: var(--ink);
     }
-    .top-nav a.is-active::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -1px;
-      height: 2px;
-      border-radius: 2px;
-      background: #7188ff;
+    .top-nav-btn.is-active {
+      background: rgba(157, 176, 255, .16);
+      color: #fff;
+      box-shadow: inset 0 0 0 1px rgba(157, 176, 255, .36);
+    }
+    .nav-count-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 19px;
+      height: 18px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: rgba(233, 80, 120, .2);
+      border: 1px solid rgba(233, 80, 120, .45);
+      color: #ff9ab3;
+      font-size: 10.5px;
+      font-weight: 700;
     }
 
+    /* FIX #1: Single-line non-wrapping status pills on desktop & iPhone 16 */
     .topbar-right {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+    .topbar-right::-webkit-scrollbar {
+      display: none;
     }
 
     .topbar-pill-btn {
@@ -154,13 +182,15 @@
       color: var(--ink);
       border: 1px solid rgba(143, 162, 255, .18);
       border-radius: 999px;
-      padding: 7px 13px;
-      font: 600 11.5px/1 'DM Sans', sans-serif;
-      letter-spacing: .2px;
+      padding: 7px 11px;
+      font: 600 11px/1 'DM Sans', sans-serif;
+      letter-spacing: .15px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
       transition: border-color .16s ease, background .16s ease, transform .12s ease;
     }
     .topbar-pill-btn:hover {
@@ -171,14 +201,16 @@
     .topbar-status {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 7px 13px;
+      gap: 6px;
+      padding: 7px 11px;
       border-radius: 999px;
       background: rgba(20, 21, 27, .9);
       border: 1px solid var(--line);
       color: var(--muted);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 500;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .status-dot {
@@ -194,19 +226,21 @@
     /* Local Dataset Dropdown Popover */
     .dataset-popover-wrap {
       position: relative;
+      flex-shrink: 0;
     }
     .dataset-popover {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 10px);
-      width: min(360px, 90vw);
+      position: fixed;
+      right: clamp(12px, 4vw, 44px);
+      top: calc(68px + env(safe-area-inset-top, 0px));
+      width: min(350px, 92vw);
       background: #13141a;
       border: 1px solid rgba(143, 162, 255, .24);
       border-radius: 18px;
       padding: 16px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, .65);
-      z-index: 60;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .75);
+      z-index: 95;
       display: none;
+      white-space: normal;
     }
     .dataset-popover.is-open {
       display: block;
@@ -963,8 +997,7 @@
       padding: 8px;
       display: block;
       transition: transform .25s ease;
-    }
-    .exercise-card:hover .exercise-visual img {
+    }    .exercise-card:hover .exercise-visual img {
       transform: scale(1.03);
     }
 
@@ -1112,6 +1145,105 @@
       background: var(--lime);
       color: var(--lime-ink);
     }
+    .btn-add-saved {
+      appearance: none;
+      background: rgba(233, 80, 120, .14);
+      color: #ff9ab3;
+      border: 1px solid rgba(233, 80, 120, .36);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font: 700 11px/1 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all .15s ease;
+      white-space: nowrap;
+    }
+    .btn-add-saved:hover {
+      background: var(--rose);
+      color: #fff;
+      border-color: var(--rose);
+    }
+    .btn-add-saved.is-saved {
+      background: var(--rose);
+      color: #fff;
+      border-color: var(--rose);
+    }
+
+    /* =====================================================================
+       MULTI-TAB VIEW PANELS & SAVED EXERCISES TAB (#tab-saved)
+       ===================================================================== */
+    .tab-view-panel {
+      display: none;
+      animation: tabFadeIn .18s ease;
+    }
+    .tab-view-panel.is-active {
+      display: block;
+    }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .saved-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .saved-metric-card {
+      background: var(--panel-card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px 18px;
+    }
+    .saved-metric-kicker {
+      font: 700 9.5px/1.2 'Manrope', sans-serif;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 6px;
+    }
+    .saved-metric-val {
+      font: 700 24px/1.15 'Manrope', sans-serif;
+      color: var(--ink);
+    }
+    .saved-metric-sub {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .saved-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      padding: 14px 16px;
+      background: var(--panel-card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .saved-empty-state {
+      background: var(--panel-card);
+      border: 1px dashed rgba(157, 176, 255, .28);
+      border-radius: 22px;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .saved-empty-state h3 {
+      margin: 0 0 8px;
+      font: 700 21px/1.25 'Manrope', sans-serif;
+      color: var(--ink);
+    }
+    .saved-empty-state p {
+      margin: 0 auto 18px;
+      max-width: 440px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
 
     .pagination-bar {
       margin-top: 18px;
@@ -1147,7 +1279,7 @@
        WEEKLY PUSH / PULL SPLIT & DAILY CHECKLIST SECTION
        ===================================================================== */
     #weekly-plan {
-      margin-top: 64px;
+      margin-top: 8px;
     }
 
     .weekly-grid {
@@ -1169,43 +1301,50 @@
     .week-table {
       width: 100%;
       border-collapse: collapse;
+      text-align: left;
+      font-size: 12.5px;
     }
     .week-table th {
-      text-align: left;
+      padding: 0 12px 12px;
+      color: var(--muted-2);
       font-size: 9.5px;
       font-weight: 700;
-      letter-spacing: 1.3px;
+      letter-spacing: 1.35px;
       text-transform: uppercase;
-      color: var(--muted-2);
-      padding: 0 10px 10px;
       border-bottom: 1px solid var(--line);
     }
     .week-table td {
-      padding: 13px 10px;
+      padding: 13px 12px;
       border-bottom: 1px solid rgba(223, 227, 244, .06);
-      font-size: 12.5px;
       color: var(--muted);
       cursor: pointer;
-      transition: background .15s ease;
+      transition: background .15s ease, color .15s ease;
     }
-    .week-table tr:hover td {
+    .week-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    .week-table tbody tr:hover td {
       background: rgba(255, 255, 255, .03);
+      color: var(--ink);
     }
-    .week-table tr.is-selected td {
-      background: rgba(157, 176, 255, .09);
+    .week-table tbody tr.is-selected td {
+      background: rgba(157, 176, 255, .1);
       color: var(--ink);
     }
     .day-pill {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
       padding: 4px 9px;
       border-radius: 999px;
-      font-size: 10.5px;
-      font-weight: 700;
       background: var(--panel-soft);
       border: 1px solid var(--line);
+      font-weight: 700;
+      font-size: 11px;
       color: var(--ink);
     }
-    .week-table tr.is-selected .day-pill {
+    .week-table tbody tr.is-selected .day-pill {
       background: var(--lime);
       color: var(--lime-ink);
       border-color: var(--lime);
@@ -1213,62 +1352,60 @@
 
     .day-workout-head {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
       padding-bottom: 16px;
       border-bottom: 1px solid var(--line);
       margin-bottom: 16px;
-      flex-wrap: wrap;
     }
     .day-workout-head h3 {
-      margin: 4px 0 0;
-      font: 700 21px/1.2 'Manrope', sans-serif;
+      margin: 0;
+      font: 700 20px/1.25 'Manrope', sans-serif;
       color: var(--ink);
     }
     #day-progress-badge {
       padding: 6px 12px;
       border-radius: 999px;
       background: rgba(233, 80, 120, .14);
-      border: 1px solid rgba(233, 80, 120, .35);
+      border: 1px solid rgba(233, 80, 120, .32);
       color: #ff9ab3;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     .today-workout-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 12px;
     }
 
     .day-exercise-card {
       background: var(--panel-soft);
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 15px;
       padding: 12px;
       display: flex;
-      gap: 12px;
       align-items: center;
-      transition: border-color .16s ease, opacity .16s ease;
+      gap: 12px;
+      transition: border-color .16s ease, background .16s ease;
     }
     .day-exercise-card.is-done {
       border-color: rgba(157, 176, 255, .45);
-      background: rgba(157, 176, 255, .06);
+      background: rgba(157, 176, 255, .07);
     }
-
     .day-ex-thumb {
       width: 68px;
       height: 68px;
       border-radius: 12px;
       background: #f4f4f0;
-      flex-shrink: 0;
       overflow: hidden;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      border: 1px solid var(--line);
     }
     .day-ex-thumb img {
       width: 100%;
@@ -1289,20 +1426,15 @@
       text-transform: capitalize;
       cursor: pointer;
     }
-    .day-exercise-card.is-done .day-ex-info h4 {
-      text-decoration: line-through;
-      color: var(--muted);
-    }
     .day-ex-meta {
       font-size: 11px;
       color: var(--muted);
       text-transform: capitalize;
     }
-
     .day-check-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
       border: 1px solid var(--line);
       background: var(--panel-card);
       color: transparent;
@@ -1310,7 +1442,6 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
       flex-shrink: 0;
       transition: all .15s ease;
     }
@@ -1318,16 +1449,17 @@
       background: var(--lime);
       border-color: var(--lime);
       color: var(--lime-ink);
+      font-weight: 800;
     }
 
     /* =====================================================================
-       10-LANGUAGE VIDEO / GIF MODAL
+       10-LANGUAGE MODAL & OFFLINE PWA MODAL
        ===================================================================== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      z-index: 80;
-      background: rgba(5, 6, 10, .82);
+      z-index: 90;
+      background: rgba(6, 7, 11, .84);
       backdrop-filter: blur(12px);
       display: none;
       align-items: center;
@@ -1338,50 +1470,50 @@
       display: flex;
     }
     .modal-dialog {
-      width: min(880px, 100%);
+      width: min(860px, 100%);
       max-height: 90vh;
       overflow-y: auto;
       background: var(--panel);
       border: 1px solid rgba(157, 176, 255, .24);
       border-radius: 24px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, .75);
       padding: 24px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .75);
     }
     .modal-head {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
       padding-bottom: 16px;
       border-bottom: 1px solid var(--line);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .modal-head h3 {
-      margin: 0;
+      margin: 4px 0 0;
       font: 700 22px/1.2 'Manrope', sans-serif;
-      color: var(--ink);
       text-transform: capitalize;
     }
     .modal-close {
       appearance: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1px solid var(--line);
       background: var(--panel-soft);
       color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
     }
     .modal-grid {
       display: grid;
-      grid-template-columns: minmax(260px, .9fr) minmax(0, 1.2fr);
+      grid-template-columns: minmax(260px, .95fr) minmax(0, 1.15fr);
       gap: 22px;
+      align-items: start;
     }
     .modal-gif-box {
       background: #f4f4f0;
       border-radius: 18px;
-      height: 300px;
+      height: 290px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1392,7 +1524,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      padding: 12px;
+      padding: 10px;
     }
     .lang-tabs {
       display: flex;
@@ -1408,6 +1540,7 @@
       border-radius: 8px;
       padding: 5px 10px;
       font: 700 11px/1 'DM Sans', sans-serif;
+      text-transform: uppercase;
       cursor: pointer;
     }
     .lang-tab.is-active {
@@ -1420,15 +1553,12 @@
       padding-left: 18px;
       color: var(--ink);
       font-size: 13.5px;
-      line-height: 1.6;
+      line-height: 1.65;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
-    /* =====================================================================
-       OFFLINE PWA & IPHONE SETUP MODAL
-       ===================================================================== */
     .pwa-status-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1439,7 +1569,7 @@
       background: var(--panel-soft);
       border: 1px solid var(--line);
       border-radius: 16px;
-      padding: 14px 16px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -1448,39 +1578,39 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      font: 700 10px/1.2 'Manrope', sans-serif;
-      letter-spacing: 1.2px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
       text-transform: uppercase;
       color: var(--lime);
     }
     .pwa-stat-val {
-      font: 700 16px/1.25 'Manrope', sans-serif;
+      font: 700 18px/1.2 'Manrope', sans-serif;
       color: var(--ink);
     }
     .pwa-stat-sub {
-      font-size: 11.5px;
+      font-size: 12px;
       color: var(--muted);
       line-height: 1.45;
     }
     .pwa-progress-track {
       width: 100%;
-      height: 6px;
+      height: 7px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, .07);
       overflow: hidden;
-      margin: 6px 0 4px;
+      margin-top: 4px;
     }
     .pwa-progress-fill {
       height: 100%;
       width: 0%;
-      border-radius: 999px;
       background: linear-gradient(90deg, #738aff, #e95078);
-      transition: width .2s ease;
+      border-radius: 999px;
+      transition: width .22s ease;
     }
     .pwa-guide-box {
-      background: var(--panel-card);
-      border: 1px solid var(--line);
+      background: rgba(157, 176, 255, .06);
+      border: 1px solid rgba(157, 176, 255, .2);
       border-radius: 16px;
       padding: 16px;
       margin-top: 14px;
@@ -1494,20 +1624,25 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      background: #0b0c12;
-      border: 1px solid rgba(157, 176, 255, .2);
+      gap: 8px;
+      background: #0d0e14;
+      border: 1px solid var(--line);
       border-radius: 11px;
       padding: 9px 12px;
-      margin-top: 6px;
-      margin-bottom: 10px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      margin-top: 7px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 11.5px;
-      color: var(--lime);
+      color: #c8d2ff;
       overflow-x: auto;
     }
 
-    /* Responsive Breakpoints */
+    /* =====================================================================
+       iOS / IPHONE 16 BOTTOM TAB BAR & MOBILE ALIGNMENT (393px VIEWPORT)
+       ===================================================================== */
+    .ios-bottom-nav {
+      display: none;
+    }
+
     @media (max-width: 1024px) {
       .hero,
       .profile-card,
@@ -1519,20 +1654,131 @@
         position: relative;
         top: 0;
         height: auto;
-        min-height: 540px;
+        min-height: 500px;
       }
     }
-    @media (max-width: 680px) {
+
+    @media (max-width: 768px) {
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: calc(8px + env(safe-area-inset-top, 0px)) 12px 10px;
+        min-height: auto;
+      }
+      .topbar-main-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
+      }
+      .brand-mark {
+        width: 96px;
+        height: 24px;
+      }
+      .top-nav {
+        width: 100%;
+        justify-content: space-between;
+        gap: 4px;
+        padding: 3px;
+      }
+      .top-nav-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 8px 8px;
+        font-size: 11.5px;
+      }
+      /* Keep all 3 status pills on ONE single horizontal line on iPhone 16 */
+      .topbar-right {
+        width: 100%;
+        justify-content: space-between;
+        gap: 5px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 1px;
+      }
+      .topbar-pill-btn,
+      .topbar-status {
+        padding: 5px 8px;
+        font-size: 10px;
+        gap: 4px;
+        border-radius: 999px;
+      }
+      .shell {
+        padding: 18px 12px calc(92px + env(safe-area-inset-bottom, 0px));
+      }
+      .hero {
+        padding: 8px 0 22px;
+        gap: 18px;
+      }
+      .hero-copy h1 {
+        font-size: 36px;
+        letter-spacing: -1.8px;
+      }
+      .profile-card {
+        padding: 16px;
+        margin-bottom: 28px;
+        gap: 14px;
+      }
+      .profile-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .exercise-panel,
+      .week-table-card,
+      .day-workout {
+        padding: 15px;
+      }
       .exercise-grid,
       .today-workout-list,
       .modal-grid,
       .pwa-status-grid,
       .filter-toolbar,
-      .profile-controls {
+      .profile-controls,
+      .saved-summary-grid {
         grid-template-columns: 1fr;
       }
-      .top-nav {
-        display: none;
+      .week-table th,
+      .week-table td {
+        padding: 11px 6px;
+        font-size: 11.5px;
+      }
+
+      /* Sticky iPhone 16 Bottom Tab Bar */
+      .ios-bottom-nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 70;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        padding: 8px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+        background: rgba(11, 12, 18, .94);
+        border-top: 1px solid rgba(223, 227, 244, .12);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .ios-tab-btn {
+        appearance: none;
+        border: 1px solid transparent;
+        background: transparent;
+        color: var(--muted);
+        border-radius: 14px;
+        padding: 8px 6px;
+        font: 600 11px/1.15 'DM Sans', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        cursor: pointer;
+      }
+      .ios-tab-btn.is-active {
+        background: rgba(157, 176, 255, .14);
+        border-color: rgba(157, 176, 255, .32);
+        color: #fff;
       }
     }
   </style>
@@ -1540,21 +1786,31 @@
 <body id="top">
 
   <!-- =====================================================================
-       TOPBAR (EXACT MATCH TO image_421bb5.png)
+       TOPBAR (SINGLE-LINE PILLS ON IPHONE 16 + 3-TAB SWITCHER)
        ===================================================================== -->
   <header class="topbar">
-    <a class="brand" href="#top" aria-label="AMIT home">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 300 60" fill="none">
-          <path d="M6 53 40 7l34 46M101 53V7l40 46 40-46v46m34-46v46m34-46h40m-20 0v46" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/>
-        </svg>
-      </span>
-      <span class="visually-hidden">AMIT</span>
-    </a>
+    <div class="topbar-main-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <a class="brand" href="#top" onclick="switchAppTab('explore'); return false;" aria-label="AMIT home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 300 60" fill="none">
+            <path d="M6 53 40 7l34 46M101 53V7l40 46 40-46v46m34-46v46m34-46h40m-20 0v46" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/>
+          </svg>
+        </span>
+        <span class="visually-hidden">AMIT</span>
+      </a>
+    </div>
 
-    <nav class="top-nav" aria-label="Primary">
-      <a href="#workout-builder" class="is-active">Muscle map</a>
-      <a href="#weekly-plan">Weekly plan</a>
+    <nav class="top-nav" aria-label="Primary tabs">
+      <button type="button" class="top-nav-btn is-active" data-tab-btn="explore" onclick="switchAppTab('explore')">
+        <span>Muscle map</span>
+      </button>
+      <button type="button" class="top-nav-btn" data-tab-btn="saved" onclick="switchAppTab('saved')">
+        <span>My exercises</span>
+        <span class="nav-count-pill" id="saved-tab-count">0</span>
+      </button>
+      <button type="button" class="top-nav-btn" data-tab-btn="weekly" onclick="switchAppTab('weekly')">
+        <span>Weekly plan</span>
+      </button>
     </nav>
 
     <div class="topbar-right">
@@ -1594,20 +1850,25 @@
       </button>
 
       <button type="button" class="topbar-pill-btn" id="install-pwa-btn" style="display: none;">
-        📱 Install App
+        📱 Install
       </button>
 
       <div class="topbar-status">
         <span class="status-dot" id="network-status-dot"></span>
-        <span id="topbar-status-text">Saved on this device</span>
+        <span id="topbar-status-text">Offline Ready · 1,324 moves</span>
       </div>
     </div>
   </header>
 
   <!-- =====================================================================
-       MAIN CONTAINER
+       MAIN CONTAINER (3 SEPARATE TABS: EXPLORE / MY EXERCISES / WEEKLY PLAN)
        ===================================================================== -->
   <main class="shell">
+
+    <!-- ===================================================================
+         TAB 1: MUSCLE MAP & 1,324 EXERCISE STUDIO (#tab-explore)
+         =================================================================== -->
+    <div id="tab-explore" class="tab-view-panel is-active">
 
     <!-- ===================================================================
          HERO SECTION (EXACT MATCH TO image_421bb5.png)
@@ -1735,8 +1996,7 @@
                   </defs>
                   <!-- Base Anatomical Silhouette -->
                   <g class="body-silhouette" aria-hidden="true">
-                    <path class="body-silhouette-part" fill="url(#head-grad)" d="M180 22 C161 22 149 36 149 57 C149 76 159 94 180 96 C201 94 211 76 211 57 C211 36 199 22 180 22 Z" />
-                    <path class="body-silhouette-part" d="M163 91 L160 116 L200 116 L197 91 Z" />
+                    <path class="body-silhouette-part" fill="url(#head-grad)" d="M180 22 C161 22 149 36 149 57 C149 76 159 94 180 96 C201 94 211 76 211 57 C211 36 199 22 180 22 Z" />                    <path class="body-silhouette-part" d="M163 91 L160 116 L200 116 L197 91 Z" />
                     <path class="body-silhouette-part" d="M120 120 L240 120 L244 202 L236 336 L180 374 L124 336 L116 202 Z" />
                     <path class="body-silhouette-part" d="M62 374 C52 388 48 408 55 422 C63 426 74 416 79 402 L86 378 Z M298 374 C308 388 312 408 305 422 C297 426 286 416 281 402 L274 378 Z" />
                     <path class="body-silhouette-part" d="M118 522 L166 526 L162 552 L120 550 Z M242 522 L194 526 L198 552 L240 550 Z" />
@@ -1878,9 +2138,62 @@
       </div>
     </section>
 
+    </div><!-- /#tab-explore -->
+
     <!-- ===================================================================
-         WEEKLY PUSH / PULL SPLIT & DAILY WORKOUT CHECKLIST
+         TAB 2: MY ADDED EXERCISES VAULT (#tab-saved)
          =================================================================== -->
+    <div id="tab-saved" class="tab-view-panel" aria-labelledby="saved-heading">
+      <section style="margin-top: 8px;">
+        <div class="section-heading-row">
+          <div>
+            <div class="section-kicker">YOUR PERSONAL EXERCISE VAULT</div>
+            <h2 id="saved-heading">My added exercises</h2>
+            <p class="section-description">Every movement you click "+ Add" on appears here with its looping GIF, sets/reps, and 10-language form guide.</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button type="button" class="btn-ghost-sm" onclick="switchAppTab('explore')" style="padding:9px 14px;">
+              + Browse muscle map
+            </button>
+            <button type="button" class="btn-ghost-sm" id="clear-saved-btn" style="padding:9px 14px;color:#ff9ab3;border-color:rgba(233,80,120,.32);">
+              Clear list
+            </button>
+          </div>
+        </div>
+
+        <div class="saved-summary-grid">
+          <div class="saved-metric-card">
+            <div class="saved-metric-kicker">ADDED MOVEMENTS</div>
+            <div class="saved-metric-val" id="saved-metric-total">0 exercises</div>
+            <div class="saved-metric-sub">Saved on this iPhone / device</div>
+          </div>
+          <div class="saved-metric-card">
+            <div class="saved-metric-kicker">MUSCLES TARGETED</div>
+            <div class="saved-metric-val" id="saved-metric-muscles">0 regions</div>
+            <div class="saved-metric-sub" id="saved-metric-muscles-sub">Add moves from the muscle map</div>
+          </div>
+          <div class="saved-metric-card">
+            <div class="saved-metric-kicker">TODAY'S COMPLETION</div>
+            <div class="saved-metric-val" id="saved-metric-done">0 / 0 done</div>
+            <div class="saved-metric-sub">Tap ✓ on any card as you finish sets</div>
+          </div>
+        </div>
+
+        <div class="saved-toolbar">
+          <div class="equipment-bar" id="saved-muscle-filter-bar" style="margin-bottom:0;"></div>
+          <div style="min-width:220px;flex:1;max-width:320px;">
+            <input id="saved-search-input" type="search" placeholder="Filter your added exercises..." style="width:100%;background:var(--panel-soft);color:var(--ink);border:1px solid var(--line);border-radius:11px;padding:8px 12px;font:500 12.5px/1.2 'DM Sans',sans-serif;outline:none;" />
+          </div>
+        </div>
+
+        <div id="saved-exercises-container"></div>
+      </section>
+    </div><!-- /#tab-saved -->
+
+    <!-- ===================================================================
+         TAB 3: WEEKLY PUSH / PULL SPLIT (#tab-weekly — EXACT MATCH TO image_08eb96.png)
+         =================================================================== -->
+    <div id="tab-weekly" class="tab-view-panel">
     <section id="weekly-plan" aria-labelledby="weekly-heading">
       <div class="section-heading-row">
         <div>
@@ -1907,7 +2220,7 @@
         <div class="day-workout">
           <div class="day-workout-head">
             <div>
-              <div class="panel-kicker" id="day-workout-kicker">MONDAY · PUSH</div>
+              <div class="panel-kicker" id="day-workout-kicker">MONDAY · PUSH A</div>
               <h3 id="day-workout-heading">Push A — Chest, Shoulders &amp; Triceps</h3>
             </div>
             <span id="day-progress-badge">0 / 5 completed</span>
@@ -1917,8 +2230,22 @@
         </div>
       </div>
     </section>
+    </div><!-- /#tab-weekly -->
 
   </main>
+
+  <!-- Sticky iOS / iPhone 16 Bottom Navigation Bar -->
+  <nav class="ios-bottom-nav" aria-label="iPhone Tab Switcher">
+    <button type="button" class="ios-tab-btn is-active" data-tab-btn="explore" onclick="switchAppTab('explore')">
+      <span>🧍 Muscle map</span>
+    </button>
+    <button type="button" class="ios-tab-btn" data-tab-btn="saved" onclick="switchAppTab('saved')">
+      <span>⭐ My exercises (<span id="ios-saved-count">0</span>)</span>
+    </button>
+    <button type="button" class="ios-tab-btn" data-tab-btn="weekly" onclick="switchAppTab('weekly')">
+      <span>📅 Weekly plan</span>
+    </button>
+  </nav>
 
   <!-- =====================================================================
        10-LANGUAGE VIDEO / GIF MODAL
@@ -1939,9 +2266,14 @@
             <img id="modal-gif-img" src="" alt="Exercise demonstration" />
           </div>
           <div class="exercise-meta-row" id="modal-tags" style="margin-top: 12px;"></div>
-          <button type="button" class="btn-load-more" id="modal-pin-btn" style="width: 100%; margin-top: 14px;">
-            + Pin to Selected Day's Workout
-          </button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;">
+            <button type="button" class="btn-load-more" id="modal-add-saved-btn" style="width: 100%; background: var(--rose); color: #fff;">
+              + Add to My Exercises
+            </button>
+            <button type="button" class="btn-load-more" id="modal-pin-btn" style="width: 100%;">
+              + Pin to Day Plan
+            </button>
+          </div>
         </div>
 
         <div>
@@ -2219,6 +2551,7 @@
     // 3. STATE MANAGEMENT
     // =========================================================================
     const state = {
+      activeTab: "explore", // 'explore' | 'saved' | 'weekly'
       selectedMuscle: "chest",
       scope: "muscle", // 'muscle' | 'all'
       equipment: "any",
@@ -2230,6 +2563,10 @@
       selectedDayIndex: 0,
       completedByDay: {},
       customDayExercises: {},
+      savedExerciseIds: ["0025", "0091", "0652"], // Default starter saved exercises
+      savedDoneMap: {},
+      savedMuscleFilter: "all",
+      savedSearch: "",
       exercises: [],
       exerciseById: new Map(),
       localBlobs: new Map(),
@@ -2239,6 +2576,23 @@
       modalExId: null,
       modalLang: "en",
       batchCachingAll: false
+    };
+
+    window.switchAppTab = function(tabName) {
+      if (!["explore", "saved", "weekly"].includes(tabName)) return;
+      state.activeTab = tabName;
+      document.querySelectorAll(".tab-view-panel").forEach(panel => {
+        panel.classList.toggle("is-active", panel.id === `tab-${tabName}`);
+      });
+      document.querySelectorAll("[data-tab-btn]").forEach(btn => {
+        btn.classList.toggle("is-active", btn.getAttribute("data-tab-btn") === tabName);
+      });
+      if (tabName === "saved") {
+        renderSavedExercisesTab();
+      } else if (tabName === "weekly") {
+        renderWeeklyPlan();
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     // =========================================================================
@@ -2641,7 +2995,6 @@ self.addEventListener('fetch', (event) => {
         if (interactivePathCount <= 10) {
           return false;
         }
-
         frag.appendChild(musclesLayer);
 
         if (diagram.outline) {
@@ -2981,6 +3334,7 @@ self.addEventListener('fetch', (event) => {
 
       renderMusclePillStrip();
       renderExercisePanel();
+      renderSavedExercisesTab();
       renderWeeklyPlan();
     }
 
@@ -3128,6 +3482,7 @@ self.addEventListener('fetch', (event) => {
       const chain = getMediaChain(ex);
       const steps = (ex.instruction_steps?.en || []).slice(0, 2);
       const prescription = getPrescriptionText();
+      const isSaved = state.savedExerciseIds.includes(ex.id);
 
       return `
         <article class="exercise-card">
@@ -3153,10 +3508,173 @@ self.addEventListener('fetch', (event) => {
             <span class="prescription-text">${prescription}</span>
             <div class="card-action-btns">
               <button type="button" class="btn-ghost-sm" onclick="openExerciseModal('${ex.id}')">Guide</button>
-              <button type="button" class="btn-pin-sm" onclick="pinExerciseToDay('${ex.id}')">+ Plan</button>
+              <button type="button" class="btn-add-saved ${isSaved ? "is-saved" : ""}" data-saved-btn="${ex.id}" onclick="toggleSaveExercise('${ex.id}')">
+                ${isSaved ? "✓ Added" : "+ Add"}
+              </button>
+              <button type="button" class="btn-pin-sm" onclick="pinExerciseToDay('${ex.id}')">+ Week</button>
             </div>
           </div>
         </article>
+      `;
+    }
+
+    // =========================================================================
+    // 8B. TAB 2: MY ADDED EXERCISES VAULT LOGIC
+    // =========================================================================
+    function updateSavedCounters() {
+      const count = state.savedExerciseIds.length;
+      const topBadge = document.getElementById("saved-tab-count");
+      const iosBadge = document.getElementById("ios-saved-count");
+      if (topBadge) topBadge.textContent = String(count);
+      if (iosBadge) iosBadge.textContent = String(count);
+    }
+
+    window.toggleSaveExercise = function(exId) {
+      const id = String(exId);
+      const idx = state.savedExerciseIds.indexOf(id);
+      const ex = state.exerciseById.get(id);
+      if (idx === -1) {
+        state.savedExerciseIds.unshift(id);
+        document.getElementById("topbar-status-text").textContent = `Added ${ex?.name || "#" + id} to My exercises`;
+      } else {
+        state.savedExerciseIds.splice(idx, 1);
+        document.getElementById("topbar-status-text").textContent = `Removed #${id} from My exercises`;
+      }
+      saveStateToStorage();
+      updateSavedCounters();
+
+      // Update any matching button in the current DOM without losing scroll position
+      document.querySelectorAll(`[data-saved-btn="${id}"]`).forEach(btn => {
+        const nowSaved = state.savedExerciseIds.includes(id);
+        btn.classList.toggle("is-saved", nowSaved);
+        btn.textContent = nowSaved ? "✓ Added" : "+ Add";
+      });
+
+      const modalAddBtn = document.getElementById("modal-add-saved-btn");
+      if (modalAddBtn && state.modalExId === id) {
+        const nowSaved = state.savedExerciseIds.includes(id);
+        modalAddBtn.textContent = nowSaved ? "✓ Added to My Exercises" : "+ Add to My Exercises";
+      }
+
+      if (state.activeTab === "saved") {
+        renderSavedExercisesTab();
+      }
+    };
+
+    window.toggleSavedExerciseDone = function(exId) {
+      const id = String(exId);
+      state.savedDoneMap[id] = !state.savedDoneMap[id];
+      saveStateToStorage();
+      renderSavedExercisesTab();
+    };
+
+    window.setSavedMuscleFilter = function(mKey) {
+      state.savedMuscleFilter = mKey;
+      renderSavedExercisesTab();
+    };
+
+    function renderSavedExercisesTab() {
+      updateSavedCounters();
+      const container = document.getElementById("saved-exercises-container");
+      const filterBar = document.getElementById("saved-muscle-filter-bar");
+      if (!container) return;
+
+      const savedList = state.savedExerciseIds
+        .map(id => state.exerciseById.get(String(id)))
+        .filter(Boolean);
+
+      const coveredMuscles = new Set();
+      let doneCount = 0;
+      savedList.forEach(ex => {
+        ex.muscles.forEach(m => coveredMuscles.add(m));
+        if (state.savedDoneMap[ex.id]) doneCount++;
+      });
+
+      document.getElementById("saved-metric-total").textContent = `${savedList.length} exercise${savedList.length === 1 ? "" : "s"}`;
+      document.getElementById("saved-metric-muscles").textContent = `${coveredMuscles.size} region${coveredMuscles.size === 1 ? "" : "s"}`;
+      document.getElementById("saved-metric-muscles-sub").textContent = coveredMuscles.size
+        ? Array.from(coveredMuscles).slice(0, 4).map(m => muscleCatalog[m]?.label || m).join(", ")
+        : "Add moves from the muscle map";
+      document.getElementById("saved-metric-done").textContent = `${doneCount} / ${savedList.length} done`;
+
+      if (filterBar) {
+        const filterChips = [{ key: "all", label: `All (${savedList.length})` }];
+        Array.from(coveredMuscles).forEach(mKey => {
+          const c = savedList.filter(e => e.muscles.includes(mKey)).length;
+          filterChips.push({ key: mKey, label: `${muscleCatalog[mKey]?.label || mKey} (${c})` });
+        });
+        filterBar.innerHTML = filterChips.map(chip => `
+          <button type="button" class="equip-chip ${state.savedMuscleFilter === chip.key ? "is-active" : ""}" onclick="setSavedMuscleFilter('${chip.key}')">
+            ${chip.label}
+          </button>
+        `).join("");
+      }
+
+      if (savedList.length === 0) {
+        container.innerHTML = `
+          <div class="saved-empty-state">
+            <h3>Your personal exercise list is empty</h3>
+            <p>Go to the <strong>Muscle map</strong> tab and tap <strong>+ Add</strong> on any exercise card to build your custom workout collection.</p>
+            <button type="button" class="btn-load-more" onclick="switchAppTab('explore')">
+              Explore 1,324 Exercises →
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const q = state.savedSearch.trim().toLowerCase();
+      const filtered = savedList.filter(ex => {
+        if (state.savedMuscleFilter !== "all" && !ex.muscles.includes(state.savedMuscleFilter)) return false;
+        if (q) {
+          const hay = `${ex.name} ${ex.target} ${ex.equipment} ${ex.id}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      const prescription = getPrescriptionText();
+      container.innerHTML = `
+        <div class="exercise-grid">
+          ${filtered.map(ex => {
+            const chain = getMediaChain(ex);
+            const steps = (ex.instruction_steps?.en || []).slice(0, 2);
+            const isDone = !!state.savedDoneMap[ex.id];
+            return `
+              <article class="exercise-card" style="${isDone ? "border-color: rgba(157,176,255,.55); background: rgba(157,176,255,.06);" : ""}">
+                <div>
+                  <div class="exercise-visual" onclick="openExerciseModal('${ex.id}')">
+                    <img src="${chain[0]}" data-idx="0" onload="handleMediaLoad(this, '${ex.id}')" onerror="handleMediaError(this, '${ex.id}')" loading="lazy" alt="${ex.name.replace(/"/g, "&quot;")}" />
+                    <span class="demo-label is-animated"><i></i> ANIMATED GIF · #${ex.id}</span>
+                    <span class="expand-pill">10-lang guide ↗</span>
+                  </div>
+                  <div class="exercise-body">
+                    <div class="exercise-meta-row">
+                      <span class="meta-tag is-primary">${ex.target}</span>
+                      <span class="meta-tag is-equip">${ex.equipment}</span>
+                      <span class="meta-tag">${ex.level}</span>
+                    </div>
+                    <h4 class="exercise-title" onclick="openExerciseModal('${ex.id}')" style="${isDone ? "text-decoration:line-through;color:var(--muted);" : ""}">${ex.name}</h4>
+                    <ol class="exercise-steps">
+                      ${steps.map(s => `<li>${s}</li>`).join("")}
+                    </ol>
+                  </div>
+                </div>
+                <div class="exercise-foot">
+                  <span class="prescription-text">${prescription}</span>
+                  <div class="card-action-btns">
+                    <button type="button" class="btn-ghost-sm" onclick="toggleSavedExerciseDone('${ex.id}')" style="${isDone ? "background:var(--lime);color:var(--lime-ink);border-color:var(--lime);" : ""}">
+                      ${isDone ? "✓ Done" : "Mark Done"}
+                    </button>
+                    <button type="button" class="btn-ghost-sm" onclick="toggleSaveExercise('${ex.id}')" style="color:#ff9ab3;">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </article>
+            `;
+          }).join("")}
+        </div>
       `;
     }
 
@@ -3281,8 +3799,11 @@ self.addEventListener('fetch', (event) => {
       state.selectedDayIndex = idx;
       const schedule = getWeeklyScheduleTemplate();
       const firstMuscle = schedule[idx]?.muscles?.[0];
-      if (firstMuscle) {
-        selectMuscle(firstMuscle);
+      if (firstMuscle && muscleCatalog[firstMuscle]) {
+        state.selectedMuscle = firstMuscle;
+        syncSelectedMuscleHighlight();
+        renderMusclePillStrip();
+        renderExercisePanel();
       }
       renderWeeklyPlan();
     };
@@ -3331,6 +3852,12 @@ self.addEventListener('fetch', (event) => {
         <span class="meta-tag">${ex.level}</span>
       `;
 
+      const modalAddBtn = document.getElementById("modal-add-saved-btn");
+      if (modalAddBtn) {
+        const isSaved = state.savedExerciseIds.includes(ex.id);
+        modalAddBtn.textContent = isSaved ? "✓ Added to My Exercises" : "+ Add to My Exercises";
+      }
+
       renderModalLangSteps(ex);
       document.getElementById("exercise-modal").classList.add("is-open");
     };
@@ -3363,7 +3890,9 @@ self.addEventListener('fetch', (event) => {
           level: state.level,
           daysPerWeek: state.daysPerWeek,
           completedByDay: state.completedByDay,
-          customDayExercises: state.customDayExercises
+          customDayExercises: state.customDayExercises,
+          savedExerciseIds: state.savedExerciseIds,
+          savedDoneMap: state.savedDoneMap
         }));
       } catch (e) {}
     }
@@ -3387,6 +3916,8 @@ self.addEventListener('fetch', (event) => {
         }
         if (parsed.completedByDay) state.completedByDay = parsed.completedByDay;
         if (parsed.customDayExercises) state.customDayExercises = parsed.customDayExercises;
+        if (Array.isArray(parsed.savedExerciseIds)) state.savedExerciseIds = parsed.savedExerciseIds;
+        if (parsed.savedDoneMap) state.savedDoneMap = parsed.savedDoneMap;
       } catch (e) {}
     }
 
@@ -3464,7 +3995,6 @@ self.addEventListener('fetch', (event) => {
         btn.textContent = `✓ All ${total.toLocaleString()} GIFs Cached Offline`;
       }
     }
-
     function downloadTextFile(filename, content, mimeType = "text/plain") {
       const blob = new Blob([content], { type: mimeType });
       const url = URL.createObjectURL(blob);
@@ -3585,17 +4115,42 @@ self.addEventListener('fetch', (event) => {
         renderExercisePanel();
       });
 
-      document.getElementById("load-more-btn").addEventListener("click", appendNextExerciseBatch);
+      document.getElementById("load-more-btn").addEventListener("click", () => {
+        appendNextExerciseBatch();
+      });
 
-      // Modal close & pin
+      // Modal close & pin & add to saved
       document.getElementById("modal-close-btn").addEventListener("click", () => {
         document.getElementById("exercise-modal").classList.remove("is-open");
+      });
+      document.getElementById("exercise-modal").addEventListener("click", (e) => {
+        if (e.target.id === "exercise-modal") {
+          document.getElementById("exercise-modal").classList.remove("is-open");
+        }
+      });
+      document.getElementById("modal-add-saved-btn").addEventListener("click", () => {
+        if (state.modalExId) {
+          window.toggleSaveExercise(state.modalExId);
+        }
       });
       document.getElementById("modal-pin-btn").addEventListener("click", () => {
         if (state.modalExId) {
           window.pinExerciseToDay(state.modalExId);
           document.getElementById("exercise-modal").classList.remove("is-open");
         }
+      });
+
+      // Saved exercises search & clear
+      document.getElementById("saved-search-input").addEventListener("input", (e) => {
+        state.savedSearch = e.target.value || "";
+        renderSavedExercisesTab();
+      });
+      document.getElementById("clear-saved-btn").addEventListener("click", () => {
+        state.savedExerciseIds = [];
+        state.savedDoneMap = {};
+        saveStateToStorage();
+        renderSavedExercisesTab();
+        renderExercisePanel();
       });
 
       // Local Dataset Popover
