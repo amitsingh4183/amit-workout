@@ -1,0 +1,3676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#08090d" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="AMIT" />
+  <link id="apple-touch-icon-link" rel="apple-touch-icon" sizes="180x180" href="" />
+  <link id="pwa-manifest-link" rel="manifest" href="" />
+  <title>AMIT — Workout Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #eceef6;
+      --muted: #a1a5b3;
+      --muted-2: #747987;
+      --page: #08090d;
+      --panel: #14151b;
+      --panel-card: #13141a;
+      --panel-soft: #1a1b22;
+      --panel-lift: #20212a;
+      --line: rgba(223, 227, 244, .1);
+      --lime: #9db0ff;
+      --lime-deep: #667ef0;
+      --lime-ink: #101326;
+      --rose: #e95078;
+      --rose-hover: #ef6585;
+      --sage: #b0b4c4;
+      --mint: #7ab5e8;
+      --amber: #e1a2a1;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --shadow-soft: 0 22px 58px rgba(0, 0, 0, .3);
+      font-family: 'DM Sans', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--page);
+      color: var(--ink);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at 52% 0%, rgba(69, 84, 169, .09), transparent 33%), var(--page);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* =====================================================================
+       TOPBAR (EXACT MATCH TO image_421bb5.png)
+       ===================================================================== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      min-height: calc(72px + env(safe-area-inset-top, 0px));
+      padding: env(safe-area-inset-top, 0px) clamp(18px, 4vw, 48px) 0;
+      background: rgba(8, 9, 13, .95);
+      border-bottom: 1px solid rgba(232, 235, 248, .08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      color: #f6f7fb;
+      text-decoration: none;
+      transition: opacity .18s ease;
+    }
+    .brand:hover {
+      opacity: .88;
+    }
+    .brand-mark {
+      display: inline-flex;
+      width: 152px;
+      height: 39px;
+    }
+    .brand-mark svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .top-nav a {
+      position: relative;
+      padding: 24px 2px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color .18s ease;
+    }
+    .top-nav a:hover,
+    .top-nav a.is-active {
+      color: var(--ink);
+    }
+    .top-nav a.is-active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      border-radius: 2px;
+      background: #7188ff;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .topbar-pill-btn {
+      appearance: none;
+      background: #13141a;
+      color: var(--ink);
+      border: 1px solid rgba(143, 162, 255, .18);
+      border-radius: 999px;
+      padding: 7px 13px;
+      font: 600 11.5px/1 'DM Sans', sans-serif;
+      letter-spacing: .2px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color .16s ease, background .16s ease, transform .12s ease;
+    }
+    .topbar-pill-btn:hover {
+      border-color: rgba(157, 176, 255, .48);
+      background: var(--panel-soft);
+    }
+
+    .topbar-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(20, 21, 27, .9);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11.5px;
+      font-weight: 500;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #8ba0ff;
+      box-shadow: 0 0 12px rgba(139, 160, 255, .58);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* Local Dataset Dropdown Popover */
+    .dataset-popover-wrap {
+      position: relative;
+    }
+    .dataset-popover {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 10px);
+      width: min(360px, 90vw);
+      background: #13141a;
+      border: 1px solid rgba(143, 162, 255, .24);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .65);
+      z-index: 60;
+      display: none;
+    }
+    .dataset-popover.is-open {
+      display: block;
+    }
+    .dataset-popover-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .dataset-popover-title {
+      font: 700 11px/1.2 'Manrope', sans-serif;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      color: var(--lime);
+    }
+    .dataset-option-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 10px 12px;
+      color: var(--ink);
+      cursor: pointer;
+      margin-bottom: 8px;
+      display: block;
+      transition: border-color .16s ease, background .16s ease;
+    }
+    .dataset-option-btn:hover {
+      border-color: rgba(157, 176, 255, .45);
+      background: var(--panel-lift);
+    }
+    .dataset-option-btn strong {
+      display: block;
+      font-size: 12.5px;
+      margin-bottom: 3px;
+      color: #fff;
+    }
+    .dataset-option-btn span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* =====================================================================
+       MAIN SHELL & HERO SECTION (EXACT MATCH TO image_421bb5.png)
+       ===================================================================== */
+    .shell {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 36px clamp(18px, 4vw, 44px) calc(84px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(290px, .75fr);
+      gap: clamp(24px, 4vw, 48px);
+      align-items: center;
+      padding: clamp(18px, 3.5vw, 42px) 0 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--lime);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.65px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .eyebrow-line {
+      width: 24px;
+      height: 1px;
+      background: #738aff;
+      display: inline-block;
+    }
+
+    .hero-copy h1 {
+      margin: 0 0 18px;
+      font: 600 clamp(38px, 5vw, 62px)/1.06 'Manrope', sans-serif;
+      letter-spacing: -2.8px;
+      color: var(--ink);
+    }
+    .hero-copy h1 em {
+      font-style: normal;
+      color: var(--lime);
+    }
+
+    .hero-copy p {
+      margin: 0 0 24px;
+      max-width: 500px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.62;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(157, 176, 255, .22);
+      transition: border-color .16s ease, background .16s ease, transform .14s ease;
+    }
+    .hero-link:hover {
+      border-color: var(--lime);
+      background: var(--panel-lift);
+      transform: translateY(-1px);
+    }
+
+    .hero-card {
+      border: 1px solid rgba(135, 154, 255, .22);
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at 98% 5%, rgba(112, 134, 255, .15), transparent 38%), #171820;
+      padding: 24px 24px 20px;
+      box-shadow: var(--shadow-soft);
+    }
+    .hero-card-kicker {
+      color: var(--lime);
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1.55px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .hero-card-value {
+      font: 700 clamp(26px, 3vw, 34px)/1.12 'Manrope', sans-serif;
+      letter-spacing: -1px;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .hero-card-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+    .hero-week-bars {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+    .hero-week-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+    }
+    .hero-week-bar i {
+      width: 100%;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .09);
+      display: block;
+      transition: background .2s ease;
+    }
+    .hero-week-bar.is-active i {
+      background: #738aff;
+      box-shadow: 0 0 10px rgba(115, 138, 255, .42);
+    }
+    .hero-week-bar span {
+      font-size: 10px;
+      color: var(--muted-2);
+      font-weight: 600;
+    }
+
+    /* =====================================================================
+       PROFILE CARD SECTION
+       ===================================================================== */
+    .profile-card {
+      margin-top: 10px;
+      margin-bottom: 48px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: minmax(180px, .85fr) minmax(240px, 1.15fr) minmax(260px, 1.3fr);
+      gap: 22px;
+      align-items: center;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .profile-kicker {
+      color: var(--lime);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.65px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .profile-title {
+      margin: 0;
+      font: 600 20px/1.2 'Manrope', sans-serif;
+      letter-spacing: -.4px;
+      color: var(--ink);
+    }
+    .profile-sub {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: var(--panel-card);
+      border: 1px solid var(--line);
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .stat-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--muted-2);
+      text-transform: uppercase;
+    }
+    .stat-val {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .profile-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .control-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .control-field label {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--muted-2);
+      text-transform: uppercase;
+    }
+    .control-field select {
+      appearance: none;
+      background: var(--panel-soft);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 9px 11px;
+      font: 500 12.5px/1.2 'DM Sans', sans-serif;
+      cursor: pointer;
+      outline: none;
+      transition: border-color .16s ease;
+    }
+    .control-field select:focus,
+    .control-field select:hover {
+      border-color: var(--lime);
+    }
+
+    /* =====================================================================
+       SECTION HEADING ROW (EXACT MATCH TO image_421b78.png)
+       ===================================================================== */
+    .section-heading-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .section-kicker {
+      color: var(--lime);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.65px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .section-heading-row h2 {
+      margin: 0 0 6px;
+      font: 600 27px/1.2 'Manrope', sans-serif;
+      letter-spacing: -.7px;
+      color: var(--ink);
+    }
+    .section-description {
+      margin: 0;
+      color: #9aa69a;
+      font-size: 12px;
+    }
+
+    .builder-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: var(--panel-card);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+    }
+
+    /* =====================================================================
+       WORKOUT BUILDER GRID & REALISTIC MUSCLE MAP (EXACT MATCH TO image_421b78.png)
+       ===================================================================== */
+    .builder-grid {
+      display: grid;
+      grid-template-columns: minmax(340px, .95fr) minmax(0, 1.25fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .body-card {
+      position: sticky;
+      top: 84px;
+      align-self: start;
+      min-height: 680px;
+      padding: 20px 19px 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #13141a;
+      border: 1px solid rgba(223, 227, 244, 0.1);
+      border-radius: 22px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    .body-card-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .body-card-title {
+      font: 700 11px/1 'Manrope', sans-serif;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .map-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .map-hint-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #8ba0ff;
+      display: inline-block;
+    }
+
+    .body-figure-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 540px;
+      width: 100%;
+      margin: 12px 0 8px;
+      gap: 12px;
+    }
+
+    .body-view-pair {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+      justify-items: center;
+      gap: 10px;
+    }
+
+    .body-view {
+      width: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .body-view-label {
+      margin-bottom: 10px;
+      color: #9fa5b5;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.35px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .body-map {
+      display: block !important;
+      width: 100% !important;
+      max-width: 235px !important;
+      height: 470px !important;
+      min-height: 440px !important;
+      overflow: visible;
+      user-select: none;
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.35));
+    }
+
+    /* EXACT MUSCLE MAP STYLING FROM image_421b78.png */
+    #front-map .body-silhouette-part,
+    #back-map .body-silhouette-part {
+      fill: url(#body-gray-grad);
+      stroke: #e2e1e6;
+      stroke-width: 1.5px;
+      vector-effect: non-scaling-stroke;
+    }
+    #front-map .body-photo,
+    #back-map .body-photo {
+      filter: grayscale(1) saturate(.08) brightness(.8) contrast(.88);
+      opacity: .92;
+      pointer-events: none;
+    }
+    #front-map .muscle-region,
+    #back-map .muscle-region {
+      fill: #7f7e84;
+      fill-opacity: 0.55;
+      stroke: #f0eff2;
+      stroke-opacity: 0.78;
+      stroke-width: 1.4px;
+      vector-effect: non-scaling-stroke;
+      opacity: 1;
+      cursor: pointer;
+      transition: fill .16s ease, fill-opacity .16s ease, stroke .16s ease, filter .16s ease;
+    }
+    #front-map .muscle-region:hover, #back-map .muscle-region:hover,
+    #front-map .muscle-region:focus-visible, #back-map .muscle-region:focus-visible,
+    #front-map .muscle-region.is-selected, #back-map .muscle-region.is-selected {
+      fill: #e95078 !important;
+      fill-opacity: 0.82 !important;
+      stroke: #fff0f4 !important;
+      stroke-opacity: 0.98 !important;
+      stroke-width: 1.8px !important;
+      filter: drop-shadow(0 0 8px rgba(233, 80, 120, 0.45));
+      outline: none;
+    }
+    #front-map .muscle-region[data-map-decoration],
+    #back-map .muscle-region[data-map-decoration] {
+      fill-opacity: .12;
+      stroke-opacity: .42;
+      pointer-events: none;
+    }
+    #front-map .body-outline,
+    #back-map .body-outline {
+      fill: none;
+      stroke: #f0eff2;
+      stroke-width: 1.25px;
+      vector-effect: non-scaling-stroke;
+      opacity: .62;
+      pointer-events: none;
+    }
+
+    @media (max-width: 700px) {
+      .body-card { position: relative; top: auto; min-height: 520px; }
+      .body-figure-wrap { min-height: 410px; }
+      .body-map { max-width: 185px !important; height: 370px !important; min-height: 340px !important; }
+    }
+
+    .figure-caption {
+      margin: 8px auto 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 13px;
+      border-radius: 999px;
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .figure-caption-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rose);
+      box-shadow: 0 0 8px rgba(233, 80, 120, .6);
+    }
+
+    .map-footer {
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted-2);
+    }
+    .map-key {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .map-key i {
+      width: 9px;
+      height: 9px;
+      border-radius: 3px;
+      background: var(--rose);
+      display: inline-block;
+    }
+
+    /* =====================================================================
+       RIGHT COLUMN: EXERCISE PANEL & 1,324 GIF CARDS
+       ===================================================================== */
+    .exercise-panel {
+      background: var(--panel-card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .exercise-panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+    .panel-kicker {
+      color: var(--lime);
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1.55px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .exercise-panel-head h3 {
+      margin: 0 0 6px;
+      font: 700 24px/1.18 'Manrope', sans-serif;
+      letter-spacing: -.5px;
+      color: var(--ink);
+    }
+    .exercise-panel-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      max-width: 560px;
+    }
+
+    .exercise-count-badge {
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(157, 176, 255, .12);
+      border: 1px solid rgba(157, 176, 255, .28);
+      color: var(--lime);
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Quick 17-Muscle Chip Bar */
+    .muscle-pill-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .muscle-pill-btn {
+      appearance: none;
+      background: var(--panel-soft);
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font: 600 11px/1 'DM Sans', sans-serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all .15s ease;
+    }
+    .muscle-pill-btn:hover {
+      color: var(--ink);
+      border-color: rgba(233, 80, 120, .45);
+    }
+    .muscle-pill-btn.is-active {
+      background: rgba(233, 80, 120, .16);
+      color: #fff0f4;
+      border-color: var(--rose);
+    }
+    .muscle-pill-btn small {
+      opacity: .72;
+      font-size: 10px;
+    }
+
+    /* Filter Toolbar */
+    .filter-toolbar {
+      display: grid;
+      grid-template-columns: minmax(180px, 1.2fr) auto auto;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+
+    .search-box {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .search-box label,
+    .scope-box label {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--muted-2);
+      text-transform: uppercase;
+    }
+    .search-input-wrap {
+      position: relative;
+    }
+    #exercise-search {
+      width: 100%;
+      background: var(--panel-soft);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 9px 12px;
+      font: 500 12.5px/1.2 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color .16s ease;
+    }
+    #exercise-search:focus {
+      border-color: var(--lime);
+    }
+
+    .scope-toggle-group {
+      display: inline-flex;
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 3px;
+    }
+    .scope-btn {
+      appearance: none;
+      background: transparent;
+      color: var(--muted);
+      border: 0;
+      border-radius: 8px;
+      padding: 6px 11px;
+      font: 600 11.5px/1 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+    .scope-btn.is-active {
+      background: var(--lime);
+      color: var(--lime-ink);
+    }
+
+    /* Equipment Filter Chips */
+    .equipment-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .equip-chip {
+      appearance: none;
+      background: var(--panel-soft);
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font: 600 11.5px/1 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+    .equip-chip:hover {
+      color: var(--ink);
+      border-color: rgba(157, 176, 255, .4);
+    }
+    .equip-chip.is-active {
+      background: var(--lime);
+      color: var(--lime-ink);
+      border-color: var(--lime);
+    }
+
+    /* Exercise Cards Grid */
+    .exercise-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .exercise-card {
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color .18s ease, transform .16s ease;
+    }
+    .exercise-card:hover {
+      border-color: rgba(157, 176, 255, .36);
+      transform: translateY(-2px);
+    }
+
+    .exercise-visual {
+      position: relative;
+      height: 215px;
+      background: #f4f4f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      border-bottom: 1px solid var(--line);
+    }
+    .exercise-visual.is-svg-fallback {
+      background: #161821;
+    }
+    .exercise-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+      display: block;
+      transition: transform .25s ease;
+    }
+    .exercise-card:hover .exercise-visual img {
+      transform: scale(1.03);
+    }
+
+    .demo-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(13, 15, 22, .84);
+      border: 1px solid rgba(255, 255, 255, .12);
+      color: #f4f5fa;
+      font: 700 9.5px/1 'Manrope', sans-serif;
+      letter-spacing: .9px;
+      text-transform: uppercase;
+      backdrop-filter: blur(6px);
+    }
+    .demo-label i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f07191;
+      box-shadow: 0 0 8px #f07191;
+      display: inline-block;
+    }
+
+    .expand-pill {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(13, 15, 22, .84);
+      border: 1px solid rgba(157, 176, 255, .28);
+      color: var(--lime);
+      font: 600 10.5px/1 'DM Sans', sans-serif;
+      backdrop-filter: blur(6px);
+    }
+
+    .exercise-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .exercise-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .meta-tag {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+    .meta-tag.is-primary {
+      background: rgba(233, 80, 120, .14);
+      border-color: rgba(233, 80, 120, .34);
+      color: #ff9ab3;
+    }
+    .meta-tag.is-equip {
+      background: rgba(157, 176, 255, .12);
+      border-color: rgba(157, 176, 255, .28);
+      color: var(--lime);
+    }
+
+    .exercise-title {
+      margin: 0;
+      font: 700 16.5px/1.28 'Manrope', sans-serif;
+      color: var(--ink);
+      text-transform: capitalize;
+      cursor: pointer;
+    }
+    .exercise-title:hover {
+      color: var(--lime);
+    }
+
+    .exercise-steps {
+      margin: 0;
+      padding-left: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .exercise-foot {
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      background: rgba(16, 18, 25, .55);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .prescription-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--lime);
+    }
+    .card-action-btns {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-ghost-sm {
+      appearance: none;
+      background: var(--panel-lift);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font: 600 11px/1 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+    .btn-ghost-sm:hover {
+      border-color: var(--lime);
+      color: var(--lime);
+    }
+    .btn-pin-sm {
+      appearance: none;
+      background: rgba(157, 176, 255, .14);
+      color: var(--lime);
+      border: 1px solid rgba(157, 176, 255, .32);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font: 700 11px/1 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+    .btn-pin-sm:hover {
+      background: var(--lime);
+      color: var(--lime-ink);
+    }
+
+    .pagination-bar {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .pagination-info {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .btn-load-more {
+      appearance: none;
+      background: var(--lime);
+      color: var(--lime-ink);
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font: 700 12.5px/1 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: filter .16s ease, transform .12s ease;
+    }
+    .btn-load-more:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    /* =====================================================================
+       WEEKLY PUSH / PULL SPLIT & DAILY CHECKLIST SECTION
+       ===================================================================== */
+    #weekly-plan {
+      margin-top: 64px;
+    }
+
+    .weekly-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, .95fr) minmax(0, 1.25fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .week-table-card,
+    .day-workout {
+      background: var(--panel-card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .week-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .week-table th {
+      text-align: left;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      padding: 0 10px 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .week-table td {
+      padding: 13px 10px;
+      border-bottom: 1px solid rgba(223, 227, 244, .06);
+      font-size: 12.5px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+    .week-table tr:hover td {
+      background: rgba(255, 255, 255, .03);
+    }
+    .week-table tr.is-selected td {
+      background: rgba(157, 176, 255, .09);
+      color: var(--ink);
+    }
+    .day-pill {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 10.5px;
+      font-weight: 700;
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+    .week-table tr.is-selected .day-pill {
+      background: var(--lime);
+      color: var(--lime-ink);
+      border-color: var(--lime);
+    }
+
+    .day-workout-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .day-workout-head h3 {
+      margin: 4px 0 0;
+      font: 700 21px/1.2 'Manrope', sans-serif;
+      color: var(--ink);
+    }
+    #day-progress-badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(233, 80, 120, .14);
+      border: 1px solid rgba(233, 80, 120, .35);
+      color: #ff9ab3;
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+
+    .today-workout-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .day-exercise-card {
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      transition: border-color .16s ease, opacity .16s ease;
+    }
+    .day-exercise-card.is-done {
+      border-color: rgba(157, 176, 255, .45);
+      background: rgba(157, 176, 255, .06);
+    }
+
+    .day-ex-thumb {
+      width: 68px;
+      height: 68px;
+      border-radius: 12px;
+      background: #f4f4f0;
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 1px solid var(--line);
+    }
+    .day-ex-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .day-ex-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .day-ex-info h4 {
+      margin: 0 0 4px;
+      font: 700 13.5px/1.25 'Manrope', sans-serif;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+      cursor: pointer;
+    }
+    .day-exercise-card.is-done .day-ex-info h4 {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+    .day-ex-meta {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: capitalize;
+    }
+
+    .day-check-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--panel-card);
+      color: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      flex-shrink: 0;
+      transition: all .15s ease;
+    }
+    .day-exercise-card.is-done .day-check-btn {
+      background: var(--lime);
+      border-color: var(--lime);
+      color: var(--lime-ink);
+    }
+
+    /* =====================================================================
+       10-LANGUAGE VIDEO / GIF MODAL
+       ===================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: rgba(5, 6, 10, .82);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.is-open {
+      display: flex;
+    }
+    .modal-dialog {
+      width: min(880px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--panel);
+      border: 1px solid rgba(157, 176, 255, .24);
+      border-radius: 24px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .75);
+      padding: 24px;
+    }
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 20px;
+    }
+    .modal-head h3 {
+      margin: 0;
+      font: 700 22px/1.2 'Manrope', sans-serif;
+      color: var(--ink);
+      text-transform: capitalize;
+    }
+    .modal-close {
+      appearance: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .modal-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, .9fr) minmax(0, 1.2fr);
+      gap: 22px;
+    }
+    .modal-gif-box {
+      background: #f4f4f0;
+      border-radius: 18px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .modal-gif-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 12px;
+    }
+    .lang-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .lang-tab {
+      appearance: none;
+      background: var(--panel-soft);
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font: 700 11px/1 'DM Sans', sans-serif;
+      cursor: pointer;
+    }
+    .lang-tab.is-active {
+      background: var(--lime);
+      color: var(--lime-ink);
+      border-color: var(--lime);
+    }
+    .modal-steps-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--ink);
+      font-size: 13.5px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* =====================================================================
+       OFFLINE PWA & IPHONE SETUP MODAL
+       ===================================================================== */
+    .pwa-status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .pwa-stat-card {
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pwa-stat-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font: 700 10px/1.2 'Manrope', sans-serif;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--lime);
+    }
+    .pwa-stat-val {
+      font: 700 16px/1.25 'Manrope', sans-serif;
+      color: var(--ink);
+    }
+    .pwa-stat-sub {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .pwa-progress-track {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .08);
+      overflow: hidden;
+      margin: 6px 0 4px;
+    }
+    .pwa-progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #738aff, #e95078);
+      transition: width .2s ease;
+    }
+    .pwa-guide-box {
+      background: var(--panel-card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 14px;
+    }
+    .pwa-guide-box h4 {
+      margin: 0 0 8px;
+      font: 700 14px/1.3 'Manrope', sans-serif;
+      color: var(--ink);
+    }
+    .pwa-code-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #0b0c12;
+      border: 1px solid rgba(157, 176, 255, .2);
+      border-radius: 11px;
+      padding: 9px 12px;
+      margin-top: 6px;
+      margin-bottom: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11.5px;
+      color: var(--lime);
+      overflow-x: auto;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1024px) {
+      .hero,
+      .profile-card,
+      .builder-grid,
+      .weekly-grid {
+        grid-template-columns: 1fr;
+      }
+      .body-card {
+        position: relative;
+        top: 0;
+        height: auto;
+        min-height: 540px;
+      }
+    }
+    @media (max-width: 680px) {
+      .exercise-grid,
+      .today-workout-list,
+      .modal-grid,
+      .pwa-status-grid,
+      .filter-toolbar,
+      .profile-controls {
+        grid-template-columns: 1fr;
+      }
+      .top-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- =====================================================================
+       TOPBAR (EXACT MATCH TO image_421bb5.png)
+       ===================================================================== -->
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="AMIT home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 300 60" fill="none">
+          <path d="M6 53 40 7l34 46M101 53V7l40 46 40-46v46m34-46v46m34-46h40m-20 0v46" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/>
+        </svg>
+      </span>
+      <span class="visually-hidden">AMIT</span>
+    </a>
+
+    <nav class="top-nav" aria-label="Primary">
+      <a href="#workout-builder" class="is-active">Muscle map</a>
+      <a href="#weekly-plan">Weekly plan</a>
+    </nav>
+
+    <div class="topbar-right">
+      <!-- Hidden file inputs for optional offline folder / file linking -->
+      <input id="local-folder-input" type="file" webkitdirectory directory multiple class="visually-hidden" />
+      <input id="local-file-input" type="file" accept=".json,.html" class="visually-hidden" />
+
+      <div class="dataset-popover-wrap">
+        <button type="button" class="topbar-pill-btn" id="dataset-menu-btn">
+          <span>📁 Local GIFs</span>
+          <span id="dataset-pill-count" style="color: var(--lime);">1,324</span>
+        </button>
+
+        <div class="dataset-popover" id="dataset-popover">
+          <div class="dataset-popover-head">
+            <span class="dataset-popover-title">exercises-dataset Source</span>
+            <button type="button" id="dataset-popover-close" style="background:none;border:0;color:var(--muted);cursor:pointer;">✕</button>
+          </div>
+          <button type="button" class="dataset-option-btn" id="pick-folder-btn">
+            <strong>🗂️ Link exercises-dataset Folder</strong>
+            <span>Select <code>C:\D_DRIVE\AI_Playbook\exercises-dataset</code> to load local <code>data/exercises.json</code> + all 1,324 <code>videos/*.gif</code> files offline.</span>
+          </button>
+          <button type="button" class="dataset-option-btn" id="pick-file-btn">
+            <strong>📄 Load exercises.json or index_2.html</strong>
+            <span>Import raw JSON or embedded <code>EXERCISES</code> array directly.</span>
+          </button>
+          <button type="button" class="dataset-option-btn" id="sync-cdn-btn">
+            <strong>🌐 Sync 1,324 Moves from CDN</strong>
+            <span>Fetch live dataset &amp; looping GIFs from GitHub / jsDelivr CDN.</span>
+          </button>
+        </div>
+      </div>
+
+      <button type="button" class="topbar-pill-btn" id="open-pwa-modal-btn" style="border-color: rgba(233, 80, 120, .38);">
+        <span>⚡ Offline PWA</span>
+        <span id="pwa-pill-badge" style="color: #ff9ab3;">iOS Ready</span>
+      </button>
+
+      <button type="button" class="topbar-pill-btn" id="install-pwa-btn" style="display: none;">
+        📱 Install App
+      </button>
+
+      <div class="topbar-status">
+        <span class="status-dot" id="network-status-dot"></span>
+        <span id="topbar-status-text">Saved on this device</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN CONTAINER
+       ===================================================================== -->
+  <main class="shell">
+
+    <!-- ===================================================================
+         HERO SECTION (EXACT MATCH TO image_421bb5.png)
+         =================================================================== -->
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          AMIT'S TRAINING SPACE
+        </div>
+        <h1 id="page-title">Your body.<br /><em>Your workout.</em></h1>
+        <p>Explore a muscle, learn each movement, and follow your weekly push–pull training plan.</p>
+        <a class="hero-link" href="#workout-builder">
+          Start with the muscle map <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+
+      <aside class="hero-card" aria-label="Starting point summary">
+        <div class="hero-card-kicker">YOUR STARTING POINT</div>
+        <div class="hero-card-value" id="hero-days-value">03 days / week</div>
+        <div class="hero-card-sub">Push / pull training plan</div>
+        <div class="hero-week-bars" id="hero-week-bars">
+          <!-- Populated dynamically for Mon–Sun -->
+        </div>
+      </aside>
+    </section>
+
+    <!-- ===================================================================
+         PROFILE SECTION
+         =================================================================== -->
+    <section class="profile-card" aria-label="Athlete profile">
+      <div>
+        <div class="profile-kicker">YOUR PROFILE</div>
+        <h2 class="profile-title">A plan that fits you</h2>
+        <p class="profile-sub">Sets, reps, and weekly structure adapt automatically.</p>
+      </div>
+
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-label">SEX</span>
+          <span class="stat-val">Man</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">AGE</span>
+          <span class="stat-val">30 yrs</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">HEIGHT</span>
+          <span class="stat-val">5′11″</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">WEIGHT</span>
+          <span class="stat-val">75 kg</span>
+        </div>
+      </div>
+
+      <div class="profile-controls">
+        <div class="control-field">
+          <label for="goal-select">YOUR FOCUS</label>
+          <select id="goal-select">
+            <option value="recomp" selected>Lean muscle &amp; posture</option>
+            <option value="hypertrophy">Muscle size (Hypertrophy)</option>
+            <option value="strength">Strength &amp; power</option>
+            <option value="mobility">Joint health &amp; control</option>
+          </select>
+        </div>
+        <div class="control-field">
+          <label for="level-select">EXPERIENCE</label>
+          <select id="level-select">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate" selected>Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+        </div>
+        <div class="control-field">
+          <label for="days-select">SESSIONS / WEEK</label>
+          <select id="days-select">
+            <option value="3" selected>3 days / week</option>
+            <option value="4">4 days / week</option>
+            <option value="5">5 days / week</option>
+            <option value="6">6 days / week</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         WORKOUT BUILDER & REALISTIC MUSCLE MAP (EXACT MATCH TO image_421b78.png)
+         =================================================================== -->
+    <section id="workout-builder" aria-labelledby="builder-heading">
+      <div class="section-heading-row">
+        <div>
+          <div class="section-kicker">EXPLORE YOUR BODY</div>
+          <h2 id="builder-heading">Choose a muscle group</h2>
+          <p class="section-description">Select an area on the map to see focused exercises and movement guides.</p>
+        </div>
+        <span class="builder-live-badge">
+          <span class="status-dot"></span> INTERACTIVE MUSCLE MAP
+        </span>
+      </div>
+
+      <div class="builder-grid">
+        <!-- LEFT STICKY CARD: LIVE MUSCLE MAP -->
+        <aside class="body-card" aria-label="Interactive human muscle map">
+          <div class="body-card-heading">
+            <span class="body-card-title">LIVE MUSCLE MAP</span>
+            <span class="map-hint"><span class="map-hint-dot"></span> Hover to highlight · tap to filter</span>
+          </div>
+
+          <div class="body-figure-wrap">
+            <div class="body-view-pair">
+              <figure class="body-view">
+                <figcaption class="body-view-label">FRONT</figcaption>
+                <svg id="front-map" class="body-map" width="360" height="740" viewBox="0 0 360 740" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Front muscle map">
+                  <defs>
+                    <linearGradient id="body-gray-grad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#7d7c82" />
+                      <stop offset="50%" stop-color="#616066" />
+                      <stop offset="100%" stop-color="#49484e" />
+                    </linearGradient>
+                    <radialGradient id="head-grad" cx="50%" cy="40%" r="55%">
+                      <stop offset="0%" stop-color="#8c8b91" />
+                      <stop offset="100%" stop-color="#525157" />
+                    </radialGradient>
+                  </defs>
+                  <!-- Base Anatomical Silhouette -->
+                  <g class="body-silhouette" aria-hidden="true">
+                    <path class="body-silhouette-part" fill="url(#head-grad)" d="M180 22 C161 22 149 36 149 57 C149 76 159 94 180 96 C201 94 211 76 211 57 C211 36 199 22 180 22 Z" />
+                    <path class="body-silhouette-part" d="M163 91 L160 116 L200 116 L197 91 Z" />
+                    <path class="body-silhouette-part" d="M120 120 L240 120 L244 202 L236 336 L180 374 L124 336 L116 202 Z" />
+                    <path class="body-silhouette-part" d="M62 374 C52 388 48 408 55 422 C63 426 74 416 79 402 L86 378 Z M298 374 C308 388 312 408 305 422 C297 426 286 416 281 402 L274 378 Z" />
+                    <path class="body-silhouette-part" d="M118 522 L166 526 L162 552 L120 550 Z M242 522 L194 526 L198 552 L240 550 Z" />
+                    <path class="body-silhouette-part" d="M120 674 L152 674 L158 706 L104 710 C102 696 110 684 120 674 Z M240 674 L208 674 L202 706 L256 710 C258 696 250 684 240 674 Z" />
+                  </g>
+                  <!-- Interactive Front Muscle Regions -->
+                  <g class="body-muscles">
+                    <!-- Traps -->
+                    <path class="muscle-region" data-muscle="traps" tabindex="0" role="button" aria-label="Upper Traps" d="M160 102 L122 122 L144 134 L165 114 Z M200 102 L238 122 L216 134 L195 114 Z" />
+                    <!-- Shoulders -->
+                    <path class="muscle-region" data-muscle="shoulders" tabindex="0" role="button" aria-label="Shoulders" d="M120 122 C92 130 78 156 82 192 C94 198 108 194 116 184 L130 142 Z M240 122 C268 130 282 156 278 192 C266 198 252 194 244 184 L230 142 Z" />
+                    <!-- Chest (Selected by default) -->
+                    <path class="muscle-region is-selected" data-muscle="chest" tabindex="0" role="button" aria-label="Chest" d="M130 132 L178 132 L178 206 C152 214 126 204 116 184 Z M230 132 L182 132 L182 206 C208 214 234 204 244 184 Z" />
+                    <!-- Biceps -->
+                    <path class="muscle-region" data-muscle="biceps" tabindex="0" role="button" aria-label="Biceps" d="M82 194 C73 224 71 254 77 282 L109 282 C116 254 117 222 114 190 Z M278 194 C287 224 289 254 283 282 L251 282 C244 254 243 222 246 190 Z" />
+                    <!-- Forearms -->
+                    <path class="muscle-region" data-muscle="forearms" tabindex="0" role="button" aria-label="Forearms" d="M75 286 C60 318 56 350 62 378 L86 378 C98 350 105 318 110 286 Z M285 286 C300 318 304 350 298 378 L274 378 C262 350 255 318 250 286 Z" />
+                    <!-- Abs (Sculpted 8-pack segments) -->
+                    <path class="muscle-region" data-muscle="abs" tabindex="0" role="button" aria-label="Abs" d="M150 212 H177 V242 H148 Z M183 212 H210 L212 242 H183 Z M148 246 H177 V276 H149 Z M183 246 H212 L211 276 H183 Z M149 280 H177 V310 H151 Z M183 280 H211 L209 310 H183 Z M151 314 H177 V354 L154 344 Z M183 314 H209 L206 344 L183 354 Z" />
+                    <!-- Obliques (Serratus + external oblique ribs) -->
+                    <path class="muscle-region" data-muscle="obliques" tabindex="0" role="button" aria-label="Obliques" d="M118 198 L146 212 L145 248 L116 232 Z M116 236 L145 252 L146 288 L119 272 Z M119 276 L146 292 L150 342 L124 326 Z M242 198 L214 212 L215 248 L244 232 Z M244 236 L215 252 L214 288 L241 272 Z M241 276 L214 292 L210 342 L236 326 Z" />
+                    <!-- Quads (Outer sweep, rectus femoris, inner teardrop) -->
+                    <path class="muscle-region" data-muscle="quads" tabindex="0" role="button" aria-label="Quads" d="M122 344 L152 358 L144 518 L116 512 C100 456 102 396 122 344 Z M155 360 L176 372 L170 524 L147 518 Z M238 344 L208 358 L216 518 L244 512 C260 456 258 396 238 344 Z M205 360 L184 372 L190 524 L213 518 Z" />
+                    <!-- Calves -->
+                    <path class="muscle-region" data-muscle="calves" tabindex="0" role="button" aria-label="Calves" d="M118 548 L164 548 C170 594 164 638 152 674 L120 674 C106 632 106 588 118 548 Z M242 548 L196 548 C190 594 196 638 208 674 L240 674 C254 632 254 588 242 548 Z" />
+                  </g>
+                </svg>
+              </figure>
+
+              <figure class="body-view">
+                <figcaption class="body-view-label">BACK</figcaption>
+                <svg id="back-map" class="body-map" width="360" height="740" viewBox="0 0 360 740" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Back muscle map">
+                  <!-- Base Anatomical Silhouette -->
+                  <g class="body-silhouette" aria-hidden="true">
+                    <path class="body-silhouette-part" fill="url(#head-grad)" d="M180 22 C161 22 149 36 149 57 C149 76 159 94 180 96 C201 94 211 76 211 57 C211 36 199 22 180 22 Z" />
+                    <path class="body-silhouette-part" d="M162 90 L158 112 L202 112 L198 90 Z" />
+                    <path class="body-silhouette-part" d="M118 122 L242 122 L244 210 L236 338 L180 374 L124 338 L116 210 Z" />
+                    <path class="body-silhouette-part" d="M62 374 C52 388 48 408 55 422 C63 426 74 416 79 402 L86 378 Z M298 374 C308 388 312 408 305 422 C297 426 286 416 281 402 L274 378 Z" />
+                    <path class="body-silhouette-part" d="M118 524 L166 528 L162 552 L120 550 Z M242 524 L194 528 L198 552 L240 550 Z" />
+                    <path class="body-silhouette-part" d="M120 674 L152 674 L158 706 L104 710 C102 696 110 684 120 674 Z M240 674 L208 674 L202 706 L256 710 C258 696 250 684 240 674 Z" />
+                  </g>
+                  <!-- Interactive Back Muscle Regions -->
+                  <g class="body-muscles">
+                    <!-- Upper Traps -->
+                    <path class="muscle-region" data-muscle="traps" tabindex="0" role="button" aria-label="Upper Traps" d="M156 94 L204 94 L244 126 L180 152 L116 126 Z" />
+                    <!-- Rear Delts -->
+                    <path class="muscle-region" data-muscle="rear_delts" tabindex="0" role="button" aria-label="Rear Delts" d="M116 128 C90 136 78 158 82 188 L114 184 L130 146 Z M244 128 C270 136 282 158 278 188 L246 184 L230 146 Z" />
+                    <!-- Mid Traps -->
+                    <path class="muscle-region" data-muscle="mid_traps" tabindex="0" role="button" aria-label="Mid Traps" d="M180 152 L214 156 L202 236 L180 258 L158 236 L146 156 Z" />
+                    <!-- Upper Back (Teres / Infraspinatus) -->
+                    <path class="muscle-region" data-muscle="upper_back" tabindex="0" role="button" aria-label="Upper Back" d="M130 146 L146 156 L156 214 L116 202 Z M230 146 L214 156 L204 214 L244 202 Z" />
+                    <!-- Lats -->
+                    <path class="muscle-region" data-muscle="lats" tabindex="0" role="button" aria-label="Lats" d="M116 206 L156 218 L162 298 L126 286 C114 256 112 228 116 206 Z M244 206 L204 218 L198 298 L234 286 C246 256 248 228 244 206 Z" />
+                    <!-- Obliques (Posterior flank) -->
+                    <path class="muscle-region" data-muscle="obliques" tabindex="0" role="button" aria-label="Obliques" d="M126 290 L154 302 L148 338 L122 328 Z M234 290 L206 302 L212 338 L238 328 Z" />
+                    <!-- Triceps -->
+                    <path class="muscle-region" data-muscle="triceps" tabindex="0" role="button" aria-label="Triceps" d="M82 192 C73 224 71 254 77 282 L110 282 C117 252 117 222 114 190 Z M278 192 C287 224 289 254 283 282 L250 282 C243 252 243 222 246 190 Z" />
+                    <!-- Forearms -->
+                    <path class="muscle-region" data-muscle="forearms" tabindex="0" role="button" aria-label="Forearms" d="M75 286 C60 318 56 350 62 378 L86 378 C98 350 105 318 110 286 Z M285 286 C300 318 304 350 298 378 L274 378 C262 350 255 318 250 286 Z" />
+                    <!-- Lower Back (Erector spinae) -->
+                    <path class="muscle-region" data-muscle="lower_back" tabindex="0" role="button" aria-label="Lower Back" d="M156 258 L204 258 L212 336 L180 352 L148 336 Z" />
+                    <!-- Glutes -->
+                    <path class="muscle-region" data-muscle="glutes" tabindex="0" role="button" aria-label="Glutes" d="M122 334 L178 352 L178 426 C144 436 110 416 112 376 Z M238 334 L182 352 L182 426 C216 436 250 416 248 376 Z" />
+                    <!-- Hamstrings -->
+                    <path class="muscle-region" data-muscle="hamstrings" tabindex="0" role="button" aria-label="Hamstrings" d="M116 428 L175 432 L166 536 L118 530 C104 490 104 458 116 428 Z M244 428 L185 432 L194 536 L242 530 C256 490 256 458 244 428 Z" />
+                    <!-- Calves -->
+                    <path class="muscle-region" data-muscle="calves" tabindex="0" role="button" aria-label="Calves" d="M118 548 L164 548 C170 594 164 638 152 674 L120 674 C106 632 106 588 118 548 Z M242 548 L196 548 C190 594 196 638 208 674 L240 674 C254 632 254 588 242 548 Z" />
+                  </g>
+                </svg>
+              </figure>
+            </div>
+
+            <div class="figure-caption">
+              <span class="figure-caption-dot"></span>
+              <span id="figure-caption-text">Chest · front</span>
+            </div>
+          </div>
+
+          <div class="map-footer">
+            <span class="map-key"><i></i> Selected muscle</span>
+            <span>Hover, then click a muscle group</span>
+          </div>
+        </aside>
+
+        <!-- RIGHT PANEL: EXERCISE STUDIO & 1,324 GIF CATALOG -->
+        <div class="exercise-panel">
+          <div class="exercise-panel-head">
+            <div>
+              <div class="panel-kicker" id="muscle-kicker">FRONT · PUSH</div>
+              <h3 id="muscle-title">Chest</h3>
+              <p id="muscle-copy">Horizontal pressing and adduction movements that build upper, mid, and lower pectoral thickness.</p>
+            </div>
+            <span class="exercise-count-badge" id="exercise-count-badge">Loading...</span>
+          </div>
+
+          <!-- 17-Muscle Quick Selector Strip -->
+          <div class="muscle-pill-strip" id="muscle-pill-strip" aria-label="All 17 muscle groups"></div>
+
+          <!-- Search + Scope + Level Controls -->
+          <div class="filter-toolbar">
+            <div class="search-box">
+              <label for="exercise-search">SEARCH 1,324 MOVEMENTS</label>
+              <div class="search-input-wrap">
+                <input id="exercise-search" type="search" placeholder="Search by exercise name, target, ID (#0025), or gear..." />
+              </div>
+            </div>
+
+            <div class="scope-box">
+              <label>SCOPE</label>
+              <div class="scope-toggle-group">
+                <button type="button" class="scope-btn is-active" id="scope-muscle-btn">Selected muscle</button>
+                <button type="button" class="scope-btn" id="scope-all-btn">All 1,324 exercises</button>
+              </div>
+            </div>
+
+            <div class="control-field">
+              <label for="difficulty-select">LEVEL</label>
+              <select id="difficulty-select">
+                <option value="all" selected>All levels</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Equipment Filter Chips -->
+          <div class="equipment-bar" id="equipment-bar" aria-label="Filter by equipment"></div>
+
+          <!-- Paginated Exercise GIF Grid -->
+          <div class="exercise-grid" id="exercise-grid"></div>
+
+          <!-- Pagination Footer & Sentinel -->
+          <div class="pagination-bar" id="pagination-bar">
+            <span class="pagination-info" id="pagination-info">Showing 0 exercises</span>
+            <button type="button" class="btn-load-more" id="load-more-btn">Show more exercises</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         WEEKLY PUSH / PULL SPLIT & DAILY WORKOUT CHECKLIST
+         =================================================================== -->
+    <section id="weekly-plan" aria-labelledby="weekly-heading">
+      <div class="section-heading-row">
+        <div>
+          <div class="section-kicker">YOUR PUSH / PULL SPLIT</div>
+          <h2 id="weekly-heading">Your week, laid out</h2>
+          <p class="section-description">Select any day to inspect its movements, watch the looping GIFs, and check off your sets.</p>
+        </div>
+      </div>
+
+      <div class="weekly-grid">
+        <div class="week-table-card">
+          <table class="week-table" aria-label="Weekly training split">
+            <thead>
+              <tr>
+                <th>DAY</th>
+                <th>SESSION</th>
+                <th>MUSCLE GROUPS</th>
+              </tr>
+            </thead>
+            <tbody id="week-table-body"></tbody>
+          </table>
+        </div>
+
+        <div class="day-workout">
+          <div class="day-workout-head">
+            <div>
+              <div class="panel-kicker" id="day-workout-kicker">MONDAY · PUSH</div>
+              <h3 id="day-workout-heading">Push A — Chest, Shoulders &amp; Triceps</h3>
+            </div>
+            <span id="day-progress-badge">0 / 5 completed</span>
+          </div>
+
+          <div class="today-workout-list" id="today-workout-list"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       10-LANGUAGE VIDEO / GIF MODAL
+       ===================================================================== -->
+  <div class="modal-backdrop" id="exercise-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <div>
+          <div class="panel-kicker" id="modal-kicker">ANIMATED GIF · #0025</div>
+          <h3 id="modal-title">Barbell Bench Press</h3>
+        </div>
+        <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-grid">
+        <div>
+          <div class="modal-gif-box">
+            <img id="modal-gif-img" src="" alt="Exercise demonstration" />
+          </div>
+          <div class="exercise-meta-row" id="modal-tags" style="margin-top: 12px;"></div>
+          <button type="button" class="btn-load-more" id="modal-pin-btn" style="width: 100%; margin-top: 14px;">
+            + Pin to Selected Day's Workout
+          </button>
+        </div>
+
+        <div>
+          <div class="panel-kicker" style="margin-bottom: 8px;">10-LANGUAGE STEP-BY-STEP GUIDE</div>
+          <div class="lang-tabs" id="modal-lang-tabs"></div>
+          <ol class="modal-steps-list" id="modal-steps-list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       OFFLINE-FIRST PWA & IPHONE HOME SCREEN MODAL
+       ===================================================================== -->
+  <div class="modal-backdrop" id="pwa-modal" role="dialog" aria-modal="true" aria-labelledby="pwa-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <div>
+          <div class="panel-kicker">OFFLINE-FIRST ENGINE · iOS &amp; ANDROID PWA</div>
+          <h3 id="pwa-modal-title">Offline Gym Storage &amp; iPhone Setup</h3>
+        </div>
+        <button type="button" class="modal-close" id="pwa-modal-close-btn" aria-label="Close">✕</button>
+      </div>
+
+      <div class="pwa-status-grid">
+        <div class="pwa-stat-card">
+          <div class="pwa-stat-head">
+            <span>1. APP SHELL &amp; MUSCLE MAP</span>
+            <span style="color: #7ab5e8;">● READY</span>
+          </div>
+          <div class="pwa-stat-val" id="pwa-map-status">Front &amp; Back Anatomy Cached</div>
+          <div class="pwa-stat-sub">180×180 iPhone Home Screen icon, Dynamic Island safe-areas, and 17-muscle map work 100% offline.</div>
+        </div>
+
+        <div class="pwa-stat-card">
+          <div class="pwa-stat-head">
+            <span>2. 1,324 EXERCISE CATALOG</span>
+            <span style="color: #7ab5e8;">● INDEXEDDB</span>
+          </div>
+          <div class="pwa-stat-val" id="pwa-db-status">1,324 Moves Saved Offline</div>
+          <div class="pwa-stat-sub">All 1,324 exercises, sets/reps, and 10-language step-by-step instructions are stored in browser IndexedDB.</div>
+        </div>
+
+        <div class="pwa-stat-card">
+          <div class="pwa-stat-head">
+            <span>3. MY WEEKLY PLAN GIFS</span>
+            <span id="pwa-week-gif-count">0 / 20 Cached</span>
+          </div>
+          <div class="pwa-stat-val">Instant Gym Airplane Mode</div>
+          <div class="pwa-stat-sub">Pre-downloads the looping GIFs for your Mon–Sun Push/Pull split into CacheStorage (~12 MB).</div>
+          <div class="pwa-progress-track"><div class="pwa-progress-fill" id="pwa-week-progress"></div></div>
+          <button type="button" class="btn-load-more" id="precache-week-gifs-btn" style="margin-top: 6px; width: 100%;">
+            ⚡ Pre-Cache My Weekly Plan GIFs Offline
+          </button>
+        </div>
+
+        <div class="pwa-stat-card">
+          <div class="pwa-stat-head">
+            <span>4. FULL 1,324 GIF LIBRARY</span>
+            <span id="pwa-all-gif-count">On-Demand + Cache</span>
+          </div>
+          <div class="pwa-stat-val">Complete Visual Vault</div>
+          <div class="pwa-stat-sub">Every GIF you view is automatically saved offline forever, or batch-cache the entire library below.</div>
+          <div class="pwa-progress-track"><div class="pwa-progress-fill" id="pwa-all-progress"></div></div>
+          <button type="button" class="btn-ghost-sm" id="precache-all-gifs-btn" style="margin-top: 6px; width: 100%; padding: 10px;">
+            📦 Pre-Cache All 1,324 GIFs in Background
+          </button>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;">
+        <button type="button" class="btn-pin-sm" id="download-sw-btn" style="padding: 9px 14px;">
+          ⬇ Download sw.js (Service Worker)
+        </button>
+        <button type="button" class="btn-pin-sm" id="download-manifest-btn" style="padding: 9px 14px;">
+          ⬇ Download manifest.json
+        </button>
+      </div>
+
+      <div class="pwa-guide-box">
+        <h4>📱 How to Open on Your iPhone &amp; Add to Home Screen (Acts Like a Native App)</h4>
+        <div class="pwa-stat-sub" style="color: var(--ink);">
+          <strong>Option A — Instant Phone Link from Your PC (30 seconds):</strong><br />
+          Run these 2 commands inside <code>C:\D_DRIVE\AI_Playbook\exercises-dataset</code> to get an instant <code>https://....trycloudflare.com</code> link you can open in iPhone Safari:
+        </div>
+        <div class="pwa-code-row">
+          <code id="cmd-http-server">npx http-server -p 8080 --cors</code>
+          <button type="button" class="btn-ghost-sm" onclick="copyCommandText('cmd-http-server', this)">Copy</button>
+        </div>
+        <div class="pwa-code-row">
+          <code id="cmd-cloudflared">npx cloudflared tunnel --url http://localhost:8080</code>
+          <button type="button" class="btn-ghost-sm" onclick="copyCommandText('cmd-cloudflared', this)">Copy</button>
+        </div>
+        <div class="pwa-stat-sub" style="color: var(--ink); margin-top: 8px;">
+          <strong>Option B — Permanent Free Link (Netlify Drop or GitHub Pages):</strong><br />
+          1. Download <code>sw.js</code> &amp; <code>manifest.json</code> above into your folder, then drag the folder onto <strong>app.netlify.com/drop</strong> or push to <strong>GitHub Pages</strong>.<br />
+          2. Open that HTTPS link in <strong>Safari on iPhone</strong> → Tap <strong>⚡ Offline PWA → Pre-Cache My Weekly Plan GIFs</strong>.<br />
+          3. Tap the iPhone Safari <strong>Share icon (square with arrow ↑)</strong> → Scroll down and tap <strong>"Add to Home Screen"</strong> → Tap <strong>Add</strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       APPLICATION JAVASCRIPT
+       - Realistic @musclemap/assets@1.1.0 Front & Back SVG Anatomy + Photo Layer
+       - Full 1,324 Exercise Dataset Loader (Local -> jsDelivr CDN -> GitHub -> IDB)
+       - Smart 6-Stage GIF Resolver (videos/{id}-{media_id}.gif)
+       - Weekly Push/Pull Split & Persistent Checklist
+       ===================================================================== -->
+  <script>
+    const SVG_NS = "http://www.w3.org/2000/svg";
+
+    // =========================================================================
+    // 1. 17-MUSCLE CATALOG METADATA
+    // =========================================================================
+    const muscleCatalog = {
+      chest: {
+        label: "Chest",
+        kicker: "FRONT · PUSH",
+        side: "front",
+        copy: "Horizontal pressing and adduction movements that build upper, mid, and lower pectoral thickness."
+      },
+      shoulders: {
+        label: "Shoulders",
+        kicker: "FRONT · PUSH",
+        side: "front",
+        copy: "Overhead pressing and lateral abduction movements for anterior and lateral deltoid width."
+      },
+      biceps: {
+        label: "Biceps",
+        kicker: "FRONT · PULL",
+        side: "front",
+        copy: "Supinated and neutral elbow flexion movements targeting the long head, short head, and brachialis."
+      },
+      forearms: {
+        label: "Forearms",
+        kicker: "FRONT & BACK · GRIP",
+        side: "front",
+        copy: "Brachioradialis, wrist flexor, and extensor work for crushing grip and elbow stability."
+      },
+      abs: {
+        label: "Abs",
+        kicker: "FRONT · CORE",
+        side: "front",
+        copy: "Spinal flexion and anti-extension trunk movements for deep rectus abdominis control."
+      },
+      obliques: {
+        label: "Obliques",
+        kicker: "FRONT & BACK · CORE",
+        side: "front",
+        copy: "Rotational core stability, lateral flexion, and waist control across every plane of motion."
+      },
+      quads: {
+        label: "Quads",
+        kicker: "FRONT · LOWER BODY",
+        side: "front",
+        copy: "Knee extension, squat, and lunge patterns targeting all four heads of the quadriceps."
+      },
+      calves: {
+        label: "Calves",
+        kicker: "FRONT & BACK · LOWER",
+        side: "back",
+        copy: "Straight-knee and bent-knee plantarflexion for the gastrocnemius, soleus, and tibialis."
+      },
+      traps: {
+        label: "Upper Traps",
+        kicker: "BACK & FRONT · PULL",
+        side: "back",
+        copy: "Scapular elevation and upper-back carries that build neck and upper trapezius support."
+      },
+      mid_traps: {
+        label: "Mid Traps",
+        kicker: "BACK · PULL",
+        side: "back",
+        copy: "Scapular retraction rows and pulls targeting the middle trapezius and rhomboids."
+      },
+      rear_delts: {
+        label: "Rear Delts",
+        kicker: "BACK · PULL",
+        side: "back",
+        copy: "Horizontal abduction and external rotation movements for posterior deltoid balance and posture."
+      },
+      upper_back: {
+        label: "Upper Back",
+        kicker: "BACK · PULL",
+        side: "back",
+        copy: "Wide-elbow horizontal pulls targeting the teres major, teres minor, and infraspinatus."
+      },
+      lats: {
+        label: "Lats",
+        kicker: "BACK · PULL",
+        side: "back",
+        copy: "Vertical pulldowns, pull-ups, and close-elbow rows that build latissimus dorsi V-taper width."
+      },
+      triceps: {
+        label: "Triceps",
+        kicker: "BACK · PUSH",
+        side: "back",
+        copy: "Overhead extensions, pushdowns, and compound presses for the long, lateral, and medial heads."
+      },
+      lower_back: {
+        label: "Lower Back",
+        kicker: "BACK · HINGE",
+        side: "back",
+        copy: "Isometric and dynamic spinal extension exercises that fortify the erector spinae."
+      },
+      glutes: {
+        label: "Glutes",
+        kicker: "BACK · HINGE",
+        side: "back",
+        copy: "Hip thrusts, bridges, hinges, and abduction moves for gluteus maximus and medius power."
+      },
+      hamstrings: {
+        label: "Hamstrings",
+        kicker: "BACK · HINGE",
+        side: "back",
+        copy: "Romanian hip hinges and knee-flexion curls for complete posterior-thigh development."
+      }
+    };
+
+    const EQUIPMENT_FILTERS = [
+      { id: "any", label: "Any" },
+      { id: "barbell", label: "Barbell" },
+      { id: "dumbbells", label: "Dumbbells" },
+      { id: "bodyweight", label: "Bodyweight" },
+      { id: "machine", label: "Machine" },
+      { id: "cable", label: "Cable" },
+      { id: "kettlebell", label: "Kettlebell" },
+      { id: "band", label: "Resistance band" },
+      { id: "medicine_ball", label: "Medicine ball" },
+      { id: "other", label: "Other gear" }
+    ];
+
+    const LANGUAGES = [
+      { code: "en", label: "EN" },
+      { code: "hi", label: "HI" },
+      { code: "es", label: "ES" },
+      { code: "fr", label: "FR" },
+      { code: "it", label: "IT" },
+      { code: "tr", label: "TR" },
+      { code: "ru", label: "RU" },
+      { code: "zh", label: "ZH" },
+      { code: "pl", label: "PL" },
+      { code: "ko", label: "KO" }
+    ];
+
+    // =========================================================================
+    // 2. BUILT-IN STARTER EXERCISES (OFFLINE GUARANTEED FOR ALL 17 MUSCLES)
+    // =========================================================================
+    const STARTER_EXERCISES = [
+      { id: "0002", media_id: "4501", name: "45° Side Bend", target: "obliques", muscle_group: "obliques", body_part: "waist", equipment: "body weight", level: "beginner", gif_url: "videos/0002-4501.gif", instruction_steps: { en: ["Anchor your feet on a 45-degree bench with your hip resting on the pad.", "Lower your torso laterally under control to stretch the obliques.", "Contract your obliques to return to a neutral spine alignment."] } },
+      { id: "0025", media_id: "EIeI8Vf", name: "Barbell Bench Press", target: "pectorals", muscle_group: "chest", body_part: "chest", equipment: "barbell", level: "intermediate", gif_url: "videos/0025-EIeI8Vf.gif", instruction_steps: { en: ["Lie flat on the bench with feet planted and shoulder blades retracted.", "Lower the barbell to mid-chest with elbows at a 45-degree angle.", "Press the bar explosively back to full lockout."] } },
+      { id: "0047", media_id: "3TZduzM", name: "Barbell Incline Bench Press", target: "pectorals", muscle_group: "chest", body_part: "chest", equipment: "barbell", level: "intermediate", gif_url: "videos/0047-3TZduzM.gif", instruction_steps: { en: ["Set bench to 30 degrees and unrack the bar over your upper chest.", "Lower slowly just below the clavicles.", "Drive the bar back up without flaring elbows excessively."] } },
+      { id: "0308", media_id: "aclHkV2", name: "Dumbbell Fly", target: "pectorals", muscle_group: "chest", body_part: "chest", equipment: "dumbbell", level: "beginner", gif_url: "videos/0308-aclHkV2.gif", instruction_steps: { en: ["Lie flat holding dumbbells above your chest with soft elbows.", "Open your arms in a wide arc until you feel a chest stretch.", "Squeeze your pecs to bring the dumbbells back together."] } },
+      { id: "0091", media_id: "0JtKW9N", name: "Barbell Overhead Press", target: "delts", muscle_group: "shoulders", body_part: "shoulders", equipment: "barbell", level: "intermediate", gif_url: "videos/0091-0JtKW9N.gif", instruction_steps: { en: ["Brace your core and glutes with the bar resting on your front delts.", "Press vertically overhead and lock out with ears between arms.", "Lower back to your collarbone under control."] } },
+      { id: "0334", media_id: "DsgkuIt", name: "Dumbbell Lateral Raise", target: "delts", muscle_group: "shoulders", body_part: "shoulders", equipment: "dumbbell", level: "beginner", gif_url: "videos/0334-DsgkuIt.gif", instruction_steps: { en: ["Stand tall with dumbbells at your sides.", "Raise arms out in the scapular plane to shoulder height.", "Lower slowly without swinging."] } },
+      { id: "0031", media_id: "25GPyDY", name: "Barbell Curl", target: "biceps", muscle_group: "biceps", body_part: "upper arms", equipment: "barbell", level: "beginner", gif_url: "videos/0031-25GPyDY.gif", instruction_steps: { en: ["Hold the bar shoulder-width apart with an underhand grip.", "Keep elbows pinned to your sides and curl to shoulder height.", "Lower all the way down to a full stretch."] } },
+      { id: "0313", media_id: "slDvUAU", name: "Dumbbell Hammer Curl", target: "forearms", muscle_group: "forearms", body_part: "lower arms", equipment: "dumbbell", level: "beginner", gif_url: "videos/0313-slDvUAU.gif", instruction_steps: { en: ["Hold dumbbells with a neutral palms-facing-in grip.", "Curl weights up focusing on the brachioradialis.", "Lower slowly under control."] } },
+      { id: "0001", media_id: "3244", name: "3/4 Sit-Up", target: "abs", muscle_group: "abs", body_part: "waist", equipment: "body weight", level: "beginner", gif_url: "videos/0001-3244.gif", instruction_steps: { en: ["Lie on your back with knees bent and feet anchored.", "Curl your upper spine up toward your knees.", "Lower back down while keeping abs engaged."] } },
+      { id: "0043", media_id: "1g5b9cK", name: "Barbell Full Squat", target: "quads", muscle_group: "quads", body_part: "upper legs", equipment: "barbell", level: "intermediate", gif_url: "videos/0043-1g5b9cK.gif", instruction_steps: { en: ["Rest bar on upper traps, brace your trunk, and sit down between your knees.", "Descend below parallel while keeping heels planted.", "Drive forcefully back to standing."] } },
+      { id: "0088", media_id: "2kL9pQx", name: "Standing Barbell Calf Raise", target: "calves", muscle_group: "calves", body_part: "lower legs", equipment: "barbell", level: "beginner", gif_url: "videos/0088-2kL9pQx.gif", instruction_steps: { en: ["Stand with balls of feet on a block.", "Lower heels for a deep stretch, then press up to peak contraction."] } },
+      { id: "0095", media_id: "zYm8wLp", name: "Barbell Shrug", target: "traps", muscle_group: "traps", body_part: "back", equipment: "barbell", level: "beginner", gif_url: "videos/0095-zYm8wLp.gif", instruction_steps: { en: ["Hold barbell at thigh level with arms straight.", "Elevate shoulders straight up toward your ears and pause.", "Lower under control."] } },
+      { id: "0192", media_id: "fR4tBnM", name: "Seated Cable Row", target: "mid_traps", muscle_group: "mid_traps", body_part: "back", equipment: "cable", level: "beginner", gif_url: "videos/0192-fR4tBnM.gif", instruction_steps: { en: ["Sit tall with feet braced and pull the handle into your mid-torso.", "Squeeze your shoulder blades together hard.", "Extend arms forward smoothly."] } },
+      { id: "0178", media_id: "pL7vCxZ", name: "Cable Rope Face Pull", target: "rear_delts", muscle_group: "rear_delts", body_part: "shoulders", equipment: "cable", level: "beginner", gif_url: "videos/0178-pL7vCxZ.gif", instruction_steps: { en: ["Pull rope attachment toward your forehead with high elbows.", "Externally rotate shoulders at the end range.", "Return slowly."] } },
+      { id: "0027", media_id: "eZyBC3j", name: "Barbell Bent Over Row", target: "upper back", muscle_group: "upper_back", body_part: "back", equipment: "barbell", level: "intermediate", gif_url: "videos/0027-eZyBC3j.gif", instruction_steps: { en: ["Hinge at the hips with a flat back.", "Row the barbell into your upper abdomen.", "Lower under strict control."] } },
+      { id: "0652", media_id: "lK9mN3p", name: "Wide-Grip Pull-Up", target: "lats", muscle_group: "lats", body_part: "back", equipment: "body weight", level: "intermediate", gif_url: "videos/0652-lK9mN3p.gif", instruction_steps: { en: ["Grip bar wider than shoulders.", "Drive elbows down to pull chest to the bar.", "Lower to a full hang."] } },
+      { id: "0201", media_id: "qW8rT5y", name: "Cable Triceps Pushdown", target: "triceps", muscle_group: "triceps", body_part: "upper arms", equipment: "cable", level: "beginner", gif_url: "videos/0201-qW8rT5y.gif", instruction_steps: { en: ["Keep elbows pinned to your ribs.", "Extend forearms down to full lockout and squeeze triceps."] } },
+      { id: "0489", media_id: "mN6vB2x", name: "45° Back Extension", target: "spine", muscle_group: "lower_back", body_part: "back", equipment: "body weight", level: "beginner", gif_url: "videos/0489-mN6vB2x.gif", instruction_steps: { en: ["Hinge at hips on a 45-degree bench with a flat back.", "Extend hips and spine until aligned."] } },
+      { id: "0046", media_id: "hJ4kL8n", name: "Barbell Hip Thrust", target: "glutes", muscle_group: "glutes", body_part: "upper legs", equipment: "barbell", level: "intermediate", gif_url: "videos/0046-hJ4kL8n.gif", instruction_steps: { en: ["Rest upper back on bench with padded bar over hips.", "Drive through heels to full hip extension and squeeze glutes."] } },
+      { id: "0085", media_id: "wX7cV9b", name: "Barbell Romanian Deadlift", target: "hamstrings", muscle_group: "hamstrings", body_part: "upper legs", equipment: "barbell", level: "intermediate", gif_url: "videos/0085-wX7cV9b.gif", instruction_steps: { en: ["Slide barbell down thighs while pushing hips straight back.", "Feel a deep hamstring stretch, then drive hips forward."] } }
+    ];
+
+    // =========================================================================
+    // 3. STATE MANAGEMENT
+    // =========================================================================
+    const state = {
+      selectedMuscle: "chest",
+      scope: "muscle", // 'muscle' | 'all'
+      equipment: "any",
+      difficulty: "all",
+      search: "",
+      goal: "recomp",
+      level: "intermediate",
+      daysPerWeek: 3,
+      selectedDayIndex: 0,
+      completedByDay: {},
+      customDayExercises: {},
+      exercises: [],
+      exerciseById: new Map(),
+      localBlobs: new Map(),
+      filteredExercises: [],
+      renderedCount: 0,
+      pageSize: 24,
+      modalExId: null,
+      modalLang: "en",
+      batchCachingAll: false
+    };
+
+    // =========================================================================
+    // 3B. OFFLINE-FIRST INDEXEDDB + CACHESTORAGE + IOS ICON / SERVICE WORKER ENGINE
+    // =========================================================================
+    const PWA_CACHE_NAME = "amit-workout-studio-v2";
+    const IDB_NAME = "amit_workout_studio_idb";
+    const IDB_VERSION = 1;
+
+    function openOfflineDB() {
+      return new Promise((resolve, reject) => {
+        if (!("indexedDB" in window)) return reject(new Error("No IndexedDB"));
+        const req = indexedDB.open(IDB_NAME, IDB_VERSION);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains("kv")) {
+            db.createObjectStore("kv");
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function idbGet(key) {
+      try {
+        const db = await openOfflineDB();
+        return await new Promise((resolve, reject) => {
+          const tx = db.transaction("kv", "readonly");
+          const req = tx.objectStore("kv").get(key);
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+      } catch (e) {
+        return null;
+      }
+    }
+
+    async function idbSet(key, val) {
+      try {
+        const db = await openOfflineDB();
+        return await new Promise((resolve, reject) => {
+          const tx = db.transaction("kv", "readwrite");
+          tx.objectStore("kv").put(val, key);
+          tx.oncomplete = () => resolve(true);
+          tx.onerror = () => reject(tx.error);
+        });
+      } catch (e) {
+        return false;
+      }
+    }
+
+    // Generate 180x180 PNG Apple Touch Icon + 512x512 PWA Icon via Canvas
+    function setupIosTouchIconAndManifest() {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = 512;
+        canvas.height = 512;
+        const ctx = canvas.getContext("2d");
+
+        // Obsidian background
+        ctx.fillStyle = "#08090d";
+        ctx.fillRect(0, 0, 512, 512);
+
+        // Subtle radial glow
+        const grad = ctx.createRadialGradient(256, 120, 20, 256, 256, 260);
+        grad.addColorStop(0, "rgba(157, 176, 255, 0.22)");
+        grad.addColorStop(1, "rgba(8, 9, 13, 0)");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 512, 512);
+
+        // Geometric "A" + pulse accent
+        ctx.strokeStyle = "#f6f7fb";
+        ctx.lineWidth = 22;
+        ctx.lineCap = "square";
+        ctx.lineJoin = "miter";
+        ctx.beginPath();
+        ctx.moveTo(136, 384);
+        ctx.lineTo(256, 118);
+        ctx.lineTo(376, 384);
+        ctx.stroke();
+
+        // Rose-pink crossbar accent
+        ctx.strokeStyle = "#e95078";
+        ctx.lineWidth = 18;
+        ctx.beginPath();
+        ctx.moveTo(188, 302);
+        ctx.lineTo(324, 302);
+        ctx.stroke();
+
+        const icon512 = canvas.toDataURL("image/png");
+
+        const iconLink = document.getElementById("apple-touch-icon-link");
+        if (iconLink) iconLink.href = icon512;
+
+        const manifestObj = {
+          name: "AMIT — Workout Studio",
+          short_name: "AMIT",
+          description: "Your body. Your workout. Offline-First 17-Muscle Map & 1,324 Exercise GIF Studio.",
+          start_url: "./index.html",
+          scope: "./",
+          display: "standalone",
+          orientation: "portrait",
+          background_color: "#08090d",
+          theme_color: "#08090d",
+          icons: [
+            { src: icon512, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+            { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+          ]
+        };
+        const blob = new Blob([JSON.stringify(manifestObj, null, 2)], { type: "application/manifest+json" });
+        const manifestUrl = URL.createObjectURL(blob);
+        const manifestLink = document.getElementById("pwa-manifest-link");
+        if (manifestLink) manifestLink.href = manifestUrl;
+      } catch (e) {}
+    }
+
+    function getServiceWorkerSourceCode() {
+      return `const CACHE_NAME = '${PWA_CACHE_NAME}';
+const CORE_ASSETS = [
+  './',
+  './index.html',
+  './data/exercises.json',
+  'https://cdn.jsdelivr.net/npm/@musclemap/assets@1.1.0/+esm',
+  'https://cdn.jsdelivr.net/npm/@musclemap/assets@1.1.0/bodies/male-front.webp',
+  'https://cdn.jsdelivr.net/npm/@musclemap/assets@1.1.0/bodies/male-back.webp',
+  'https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/data/exercises.json'
+];
+
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return Promise.allSettled(CORE_ASSETS.map((url) => cache.add(url)));
+    })
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.map((k) => (k !== CACHE_NAME ? caches.delete(k) : null)))
+    ).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+  event.respondWith(
+    caches.match(event.request, { ignoreSearch: true }).then((cached) => {
+      if (cached) return cached;
+      return fetch(event.request)
+        .then((response) => {
+          if (response && (response.status === 200 || response.type === 'opaque')) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return response;
+        })
+        .catch(() => cached);
+    })
+  );
+});
+`;
+    }
+
+    async function registerOfflineServiceWorker() {
+      if (!("serviceWorker" in navigator)) return;
+      if (location.protocol !== "https:" && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") return;
+      try {
+        await navigator.serviceWorker.register("./sw.js");
+      } catch (e) {
+        // sw.js is optional because IndexedDB + CacheStorage also run directly in main thread
+      }
+    }
+
+    // Cache a media URL in CacheStorage and hydrate a local Blob URL for instant offline playback
+    async function cacheMediaUrlOffline(url, keyHint) {
+      if (!("caches" in window) || !url) return false;
+      try {
+        const cache = await caches.open(PWA_CACHE_NAME);
+        let res = await cache.match(url);
+        if (!res) {
+          res = await fetch(url, { mode: "cors" });
+          if (res && res.ok) {
+            await cache.put(url, res.clone());
+          } else {
+            return false;
+          }
+        }
+        if (res && res.ok && keyHint && !state.localBlobs.has(keyHint)) {
+          const blob = await res.blob();
+          state.localBlobs.set(keyHint, URL.createObjectURL(blob));
+        }
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    // Hydrate any already-cached GIFs from CacheStorage into state.localBlobs on startup
+    async function hydrateCachedGifsFromCacheStorage() {
+      if (!("caches" in window)) return;
+      try {
+        const cache = await caches.open(PWA_CACHE_NAME);
+        const requests = await cache.keys();
+        let gifCount = 0;
+        for (const req of requests) {
+          if (req.url.endsWith(".gif") || req.url.endsWith(".webp")) {
+            const fileName = req.url.split("/").pop();
+            const res = await cache.match(req);
+            if (res && res.ok) {
+              const blob = await res.blob();
+              const blobUrl = URL.createObjectURL(blob);
+              state.localBlobs.set(fileName, blobUrl);
+              state.localBlobs.set(`videos/${fileName}`, blobUrl);
+              if (req.url.endsWith(".gif")) gifCount++;
+            }
+          }
+        }
+        if (gifCount > 0) {
+          const badge = document.getElementById("pwa-pill-badge");
+          if (badge) badge.textContent = `${gifCount} GIFs Offline`;
+        }
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // 4. EXACT @musclemap/assets@1.1.0 REALISTIC ANATOMY RENDERER
+    //    (Matches image_421b78.png with grayscale body photo + rose-pink vectors)
+    // =========================================================================
+    function createSvgNode(tag, attrs = {}) {
+      const el = document.createElementNS(SVG_NS, tag);
+      for (const [k, v] of Object.entries(attrs)) {
+        if (v !== undefined && v !== null) el.setAttribute(k, String(v));
+      }
+      return el;
+    }
+
+    function muscleCatalogKey(group, id) {
+      const rawGroup = String(group || "").toLowerCase();
+      const rawId = String(id || "").toLowerCase();
+      if (rawId.includes("rear_delt") || rawId.includes("posterior_delt")) return "rear_delts";
+      if (rawId.includes("oblique")) return "obliques";
+      if (rawId.includes("mid_trap") || rawId.includes("lower_trap") || rawId.includes("rhomboid")) return "mid_traps";
+      if (rawId.includes("upper_trap") || rawGroup === "traps") return "traps";
+      if (rawId.includes("teres") || rawId.includes("infraspinatus") || rawGroup === "upper_back") return "upper_back";
+      if (rawId.includes("lat") || rawGroup === "lats") return "lats";
+      if (rawId.includes("erector") || rawId.includes("lower_back") || rawGroup === "lower_back") return "lower_back";
+
+      const map = {
+        chest: "chest",
+        shoulders: "shoulders",
+        deltoids: "shoulders",
+        biceps: "biceps",
+        forearms: "forearms",
+        abs: "abs",
+        abdominals: "abs",
+        obliques: "obliques",
+        quads: "quads",
+        quadriceps: "quads",
+        adductors: "quads",
+        abductors: "glutes",
+        calves: "calves",
+        traps: "traps",
+        triceps: "triceps",
+        glutes: "glutes",
+        hamstrings: "hamstrings",
+        back: "upper_back"
+      };
+      return map[rawGroup] || map[rawId] || null;
+    }
+
+    function bindMuscleRegionEvents(pathEl, key) {
+      if (pathEl.dataset.bound === "1") return;
+      pathEl.dataset.bound = "1";
+      pathEl.addEventListener("mouseenter", () => {
+        const meta = muscleCatalog[key];
+        if (meta) {
+          document.getElementById("figure-caption-text").textContent = `${meta.label} · ${meta.side}`;
+        }
+      });
+      pathEl.addEventListener("mouseleave", () => {
+        updateFigureCaption();
+      });
+      pathEl.addEventListener("click", () => {
+        selectMuscle(key);
+      });
+      pathEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          selectMuscle(key);
+        }
+      });
+    }
+
+    // Bind events to the pre-populated high-detail anatomical SVG in HTML
+    function renderFallbackMuscleMaps() {
+      const frontSvg = document.getElementById("front-map");
+      const backSvg = document.getElementById("back-map");
+      if (!frontSvg || !backSvg) return;
+
+      [frontSvg, backSvg].forEach((svg) => {
+        svg.setAttribute("width", svg.getAttribute("width") || "360");
+        svg.setAttribute("height", svg.getAttribute("height") || "740");
+        svg.querySelectorAll(".muscle-region[data-muscle]").forEach((pathEl) => {
+          const key = pathEl.getAttribute("data-muscle");
+          if (key && muscleCatalog[key]) {
+            bindMuscleRegionEvents(pathEl, key);
+          }
+        });
+      });
+
+      syncSelectedMuscleHighlight();
+    }
+
+    function renderMuscleMapView(svg, diagram, view, photoUrl) {
+      if (!svg || !diagram) return false;
+      try {
+        const viewBoxStr = String(diagram.viewBox || "0 0 769 1600");
+        const [, , width = 769, height = 1600] = viewBoxStr.split(/\s+/).map(Number);
+
+        const frag = document.createDocumentFragment();
+        const defs = createSvgNode("defs");
+
+        const grad = createSvgNode("linearGradient", { id: `body-gray-grad-${view}`, x1: "0", y1: "0", x2: "0", y2: "1" });
+        grad.appendChild(createSvgNode("stop", { offset: "0%", "stop-color": "#7d7c82" }));
+        grad.appendChild(createSvgNode("stop", { offset: "50%", "stop-color": "#616066" }));
+        grad.appendChild(createSvgNode("stop", { offset: "100%", "stop-color": "#49484e" }));
+        defs.appendChild(grad);
+
+        const clipId = `body-photo-clip-${view}`;
+        const clipPath = createSvgNode("clipPath", { id: clipId });
+        const silhouetteGroup = createSvgNode("g", { class: "body-silhouette", "aria-hidden": "true" });
+
+        Object.values(diagram.bodyParts || {}).forEach((part) => {
+          if (!part?.d) return;
+          clipPath.appendChild(createSvgNode("path", { d: part.d }));
+          silhouetteGroup.appendChild(createSvgNode("path", {
+            d: part.d,
+            class: "body-silhouette-part",
+            style: "fill: #68676b;"
+          }));
+        });
+
+        Object.entries(diagram.muscles || {}).forEach(([, muscle]) => {
+          (muscle.paths || []).forEach((d) => clipPath.appendChild(createSvgNode("path", { d })));
+        });
+
+        defs.appendChild(clipPath);
+        frag.appendChild(defs);
+        frag.appendChild(silhouetteGroup);
+
+        if (photoUrl) {
+          const imgNode = createSvgNode("image", {
+            href: photoUrl,
+            x: 0,
+            y: 0,
+            width,
+            height,
+            preserveAspectRatio: "xMidYMid slice",
+            "clip-path": `url(#${clipId})`,
+            class: "body-photo",
+            "aria-hidden": "true"
+          });
+          imgNode.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", photoUrl);
+          imgNode.addEventListener("error", () => {
+            imgNode.remove();
+          });
+          frag.appendChild(imgNode);
+        }
+
+        const musclesLayer = createSvgNode("g", { class: "body-muscles" });
+        let interactivePathCount = 0;
+
+        Object.entries(diagram.muscles || {}).forEach(([id, muscle]) => {
+          const key = muscleCatalogKey(muscle.group, id);
+          (muscle.paths || []).forEach((d, index) => {
+            const attrs = { d, class: "muscle-region" };
+            if (key && muscleCatalog[key]) {
+              attrs["data-muscle"] = key;
+              attrs["aria-label"] = muscle.name || muscleCatalog[key].label;
+              if (index === 0) {
+                attrs.tabindex = "0";
+                attrs.role = "button";
+              }
+              interactivePathCount++;
+            } else {
+              attrs["data-map-decoration"] = "true";
+              attrs["aria-hidden"] = "true";
+            }
+            const pathEl = createSvgNode("path", attrs);
+            if (key && muscleCatalog[key]) {
+              bindMuscleRegionEvents(pathEl, key);
+            }
+            musclesLayer.appendChild(pathEl);
+          });
+        });
+
+        if (interactivePathCount <= 10) {
+          return false;
+        }
+
+        frag.appendChild(musclesLayer);
+
+        if (diagram.outline) {
+          frag.appendChild(createSvgNode("path", {
+            d: diagram.outline,
+            class: "body-outline",
+            "aria-hidden": "true"
+          }));
+        }
+
+        svg.setAttribute("viewBox", viewBoxStr);
+        svg.setAttribute("width", String(width));
+        svg.setAttribute("height", String(height));
+        svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        svg.replaceChildren(frag);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    async function loadMuscleMapAssets() {
+      renderFallbackMuscleMaps();
+      const cdn = "https://cdn.jsdelivr.net/npm/@musclemap/assets@1.1.0";
+
+      // 1. Check IndexedDB cached diagram + CacheStorage cached grayscale body photos first
+      try {
+        const cachedDiagrams = await idbGet("musclemap_diagrams_v1");
+        if (cachedDiagrams?.MALE_FRONT && cachedDiagrams?.MALE_BACK) {
+          const frontPhotoUrl = state.localBlobs.get("male-front.webp") || `${cdn}/bodies/male-front.webp`;
+          const backPhotoUrl = state.localBlobs.get("male-back.webp") || `${cdn}/bodies/male-back.webp`;
+          const okFront = renderMuscleMapView(
+            document.getElementById("front-map"),
+            cachedDiagrams.MALE_FRONT,
+            "front",
+            frontPhotoUrl
+          );
+          const okBack = renderMuscleMapView(
+            document.getElementById("back-map"),
+            cachedDiagrams.MALE_BACK,
+            "back",
+            backPhotoUrl
+          );
+          if (okFront && okBack) {
+            syncSelectedMuscleHighlight();
+          }
+        }
+      } catch (e) {}
+
+      // 2. Fetch live @musclemap/assets@1.1.0 and persist diagrams + WebP photos for offline use
+      const urls = [
+        "https://cdn.jsdelivr.net/npm/@musclemap/assets@1.1.0/+esm",
+        "https://esm.sh/@musclemap/assets@1.1.0?bundle"
+      ];
+      for (const url of urls) {
+        try {
+          const mod = await import(url);
+          if (mod?.MALE_FRONT && mod?.MALE_BACK) {
+            await idbSet("musclemap_diagrams_v1", {
+              MALE_FRONT: mod.MALE_FRONT,
+              MALE_BACK: mod.MALE_BACK
+            });
+            await cacheMediaUrlOffline(`${cdn}/bodies/male-front.webp`, "male-front.webp");
+            await cacheMediaUrlOffline(`${cdn}/bodies/male-back.webp`, "male-back.webp");
+
+            const frontPhotoUrl = state.localBlobs.get("male-front.webp") || `${cdn}/bodies/male-front.webp`;
+            const backPhotoUrl = state.localBlobs.get("male-back.webp") || `${cdn}/bodies/male-back.webp`;
+
+            const okFront = renderMuscleMapView(
+              document.getElementById("front-map"),
+              mod.MALE_FRONT,
+              "front",
+              frontPhotoUrl
+            );
+            const okBack = renderMuscleMapView(
+              document.getElementById("back-map"),
+              mod.MALE_BACK,
+              "back",
+              backPhotoUrl
+            );
+            if (okFront && okBack) {
+              syncSelectedMuscleHighlight();
+              return;
+            }
+          }
+        } catch (err) {
+          // Keep pre-populated or IndexedDB-cached anatomical map intact
+        }
+      }
+      syncSelectedMuscleHighlight();
+    }
+
+    function syncSelectedMuscleHighlight() {
+      document.querySelectorAll("#front-map .muscle-region, #back-map .muscle-region").forEach((el) => {
+        const key = el.getAttribute("data-muscle");
+        const isSelected = state.scope === "muscle" && key === state.selectedMuscle;
+        el.classList.toggle("is-selected", isSelected);
+      });
+      updateFigureCaption();
+    }
+
+    function updateFigureCaption() {
+      const meta = muscleCatalog[state.selectedMuscle] || muscleCatalog.chest;
+      const cap = document.getElementById("figure-caption-text");
+      if (cap) {
+        cap.textContent = `${meta.label} · ${meta.side}`;
+      }
+    }
+
+    // =========================================================================
+    // 5. ACCURATE CLASSIFIER FOR ALL 1,324 EXERCISES INTO 17 MUSCLE KEYS
+    // =========================================================================
+    function classifyExerciseTo17Muscles(raw) {
+      const primary = new Set();
+      const name = String(raw.name || "").toLowerCase();
+      const target = String(raw.target || "").toLowerCase();
+      const group = String(raw.muscle_group || "").toLowerCase();
+      const bodyPart = String(raw.body_part || raw.category || "").toLowerCase();
+
+      if (muscleCatalog[group]) primary.add(group);
+      if (muscleCatalog[target]) primary.add(target);
+
+      if (target.includes("pectoral") || bodyPart === "chest") primary.add("chest");
+
+      if (name.includes("rear delt") || name.includes("face pull") || name.includes("reverse fly") || target.includes("rear_delt")) {
+        primary.add("rear_delts");
+      } else if (target.includes("delt") || bodyPart === "shoulders") {
+        primary.add("shoulders");
+      }
+
+      if (target.includes("bicep") || target.includes("brachialis") || (name.includes("curl") && !name.includes("leg") && !name.includes("wrist"))) {
+        if (name.includes("reverse curl") || name.includes("wrist")) primary.add("forearms");
+        else primary.add("biceps");
+      }
+      if (target.includes("tricep") || name.includes("tricep") || name.includes("pushdown") || name.includes("skullcrusher")) {
+        primary.add("triceps");
+      }
+      if (target.includes("forearm") || target.includes("wrist") || target.includes("brachioradialis") || bodyPart === "lower arms") {
+        primary.add("forearms");
+      }
+
+      if (name.includes("oblique") || name.includes("side bend") || name.includes("twist") || name.includes("woodchop") || name.includes("windmill") || target.includes("oblique") || target.includes("serratus")) {
+        primary.add("obliques");
+      } else if (target.includes("abs") || target.includes("abdominal") || bodyPart === "waist") {
+        primary.add("abs");
+      }
+
+      if (target.includes("trap") || target.includes("levator") || name.includes("shrug")) {
+        if (name.includes("mid trap") || name.includes("rhomboid")) primary.add("mid_traps");
+        else primary.add("traps");
+      }
+      if (target.includes("upper back") || name.includes("seated row") || name.includes("t-bar row") || name.includes("chest supported row")) {
+        primary.add("upper_back");
+        if (name.includes("seated") || name.includes("cable row") || name.includes("rhomboid")) primary.add("mid_traps");
+      }
+      if (target.includes("lat") || name.includes("pulldown") || name.includes("pull-up") || name.includes("chin-up") || name.includes("pullover")) {
+        primary.add("lats");
+      }
+      if (target.includes("spine") || target.includes("lower back") || target.includes("erector") || name.includes("hyperextension") || name.includes("good morning")) {
+        primary.add("lower_back");
+      }
+
+      if (target.includes("quad") || target.includes("adductor") || name.includes("squat") || name.includes("lunge") || name.includes("leg press") || name.includes("leg extension")) {
+        primary.add("quads");
+      }
+      if (target.includes("glute") || target.includes("abductor") || name.includes("hip thrust") || name.includes("glute bridge")) {
+        primary.add("glutes");
+      }
+      if (target.includes("hamstring") || name.includes("romanian deadlift") || name.includes("stiff leg") || name.includes("leg curl") || name.includes("deadlift")) {
+        primary.add("hamstrings");
+      }
+      if (target.includes("calves") || target.includes("calf") || target.includes("soleus") || bodyPart === "lower legs") {
+        primary.add("calves");
+      }
+
+      if (primary.size === 0) {
+        if (bodyPart === "back") primary.add("upper_back");
+        else if (bodyPart === "upper legs") primary.add("quads");
+        else if (bodyPart === "upper arms") primary.add("biceps");
+        else primary.add("abs");
+      }
+
+      return Array.from(primary);
+    }
+
+    function normalizeEquipment(rawEq) {
+      const eq = String(rawEq || "").toLowerCase();
+      if (eq.includes("barbell") || eq.includes("ez bar") || eq.includes("olympic") || eq.includes("trap bar")) return "barbell";
+      if (eq.includes("dumbbell")) return "dumbbells";
+      if (eq.includes("body weight") || eq.includes("bodyweight") || eq.includes("assisted")) return "bodyweight";
+      if (eq.includes("machine") || eq.includes("smith") || eq.includes("leverage") || eq.includes("sled")) return "machine";
+      if (eq.includes("cable") || eq.includes("rope")) return "cable";
+      if (eq.includes("kettlebell")) return "kettlebell";
+      if (eq.includes("band") || eq.includes("resistance")) return "band";
+      if (eq.includes("ball") || eq.includes("bosu")) return "medicine_ball";
+      return "other";
+    }
+
+    function normalizeExercise(raw, index) {
+      const id = String(raw.id || String(index + 1).padStart(4, "0"));
+      const media_id = String(raw.media_id || raw.mediaId || id);
+      const gif_url = raw.gif_url || `videos/${id}-${media_id}.gif`;
+      const image = raw.image || `images/${id}-${media_id}.jpg`;
+      const muscles = classifyExerciseTo17Muscles(raw);
+      const equipmentKey = normalizeEquipment(raw.equipment);
+      const level = String(raw.level || "intermediate").toLowerCase();
+
+      let instruction_steps = raw.instruction_steps || {};
+      if (!instruction_steps.en || !instruction_steps.en.length) {
+        instruction_steps = {
+          en: [
+            `Set up for ${raw.name || "this movement"} with a braced core and controlled posture.`,
+            `Drive through your primary mover (${raw.target || muscles[0]}) smoothly without momentum.`,
+            `Pause briefly at peak contraction, then return along the same path under control.`
+          ]
+        };
+      }
+
+      return {
+        id,
+        media_id,
+        name: raw.name || `Exercise #${id}`,
+        target: raw.target || muscles[0],
+        body_part: raw.body_part || raw.category || muscles[0],
+        equipment: raw.equipment || "body weight",
+        equipmentKey,
+        level,
+        secondary_muscles: Array.isArray(raw.secondary_muscles) ? raw.secondary_muscles : [],
+        gif_url,
+        image,
+        instruction_steps,
+        muscles
+      };
+    }
+
+    // =========================================================================
+    // 6. MULTI-SOURCE GIF RESOLVER (videos/{id}-{media_id}.gif)
+    // =========================================================================
+    function buildSvgIllustrationDataUri(ex) {
+      const title = (ex?.name || "Movement").slice(0, 26);
+      const target = (ex?.target || "Muscle").toUpperCase();
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220">
+        <rect width="320" height="220" fill="#161821"/>
+        <circle cx="160" cy="96" r="54" fill="none" stroke="rgba(157,176,255,0.18)" stroke-width="2" stroke-dasharray="4 4"/>
+        <g>
+          <animateTransform attributeName="transform" type="translate" values="0,3; 0,-6; 0,3" dur="1.8s" repeatCount="indefinite"/>
+          <circle cx="160" cy="64" r="12" fill="#9db0ff"/>
+          <path d="M140 84 H180 L174 128 H146 Z" fill="#e95078" opacity="0.88"/>
+          <path d="M112 92 L140 88 M208 92 L180 88" stroke="#eceef6" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <text x="160" y="182" text-anchor="middle" fill="#9db0ff" font-family="sans-serif" font-size="10" font-weight="700" letter-spacing="1.2">${target}</text>
+        <text x="160" y="200" text-anchor="middle" fill="#a1a5b3" font-family="sans-serif" font-size="11">${title}</text>
+      </svg>`;
+      return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+    }
+
+    function getMediaChain(ex) {
+      if (!ex) return [buildSvgIllustrationDataUri(null)];
+      const id = ex.id;
+      const mediaId = ex.media_id || id;
+      const relGif = (ex.gif_url || `videos/${id}-${mediaId}.gif`).replace(/^\.\//, "");
+      const relImg = (ex.image || `images/${id}-${mediaId}.jpg`).replace(/^\.\//, "");
+      const gifName = relGif.split("/").pop();
+      const imgName = relImg.split("/").pop();
+
+      const chain = [];
+      if (state.localBlobs.has(relGif)) chain.push(state.localBlobs.get(relGif));
+      else if (state.localBlobs.has(gifName)) chain.push(state.localBlobs.get(gifName));
+
+      const isLocalHost = location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
+      if (isLocalHost) {
+        chain.push(`./${relGif}`);
+      }
+
+      chain.push(`https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/${relGif}`);
+      chain.push(`https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/${relGif}`);
+      if (!isLocalHost) {
+        chain.push(`./${relGif}`);
+      }
+      if (mediaId && mediaId.length >= 4) {
+        chain.push(`https://static.exercisedb.dev/media/${mediaId}.gif`);
+      }
+      if (state.localBlobs.has(relImg)) chain.push(state.localBlobs.get(relImg));
+      else if (state.localBlobs.has(imgName)) chain.push(state.localBlobs.get(imgName));
+      chain.push(`https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/${relImg}`);
+      chain.push(buildSvgIllustrationDataUri(ex));
+
+      return [...new Set(chain)];
+    }
+
+    window.handleMediaError = function(imgEl, exId) {
+      const ex = state.exerciseById.get(String(exId));
+      const chain = getMediaChain(ex);
+      const nextIdx = parseInt(imgEl.getAttribute("data-idx") || "0", 10) + 1;
+      if (nextIdx < chain.length) {
+        imgEl.setAttribute("data-idx", String(nextIdx));
+        imgEl.src = chain[nextIdx];
+        if (chain[nextIdx].startsWith("data:image/svg")) {
+          imgEl.closest(".exercise-visual")?.classList.add("is-svg-fallback");
+        }
+      } else {
+        imgEl.onerror = null;
+      }
+    };
+
+    // Opportunistically cache any successfully loaded remote GIF into CacheStorage for offline replay
+    window.handleMediaLoad = function(imgEl, exId) {
+      const src = imgEl?.currentSrc || imgEl?.src || "";
+      if (!src || src.startsWith("blob:") || src.startsWith("data:")) return;
+      const ex = state.exerciseById.get(String(exId));
+      if (!ex) return;
+      const relGif = (ex.gif_url || `videos/${ex.id}-${ex.media_id}.gif`).replace(/^\.\//, "");
+      cacheMediaUrlOffline(src, relGif);
+    };
+
+    // =========================================================================
+    // 7. DATASET LOADER (LOCAL -> INDEXEDDB -> CDN -> GITHUB)
+    // =========================================================================
+    function mountDataset(rawArray, statusLabel, persistToIdb = false) {
+      if (!Array.isArray(rawArray) || !rawArray.length) return;
+      state.exercises = rawArray.map((item, idx) => normalizeExercise(item, idx));
+      state.exerciseById.clear();
+      state.exercises.forEach(ex => state.exerciseById.set(ex.id, ex));
+
+      const totalStr = state.exercises.length.toLocaleString();
+      document.getElementById("dataset-pill-count").textContent = totalStr;
+      document.getElementById("scope-all-btn").textContent = `All ${totalStr} exercises`;
+      const dbStatusEl = document.getElementById("pwa-db-status");
+      if (dbStatusEl) dbStatusEl.textContent = `${totalStr} Moves Saved Offline`;
+
+      if (statusLabel) {
+        document.getElementById("topbar-status-text").textContent = statusLabel;
+      }
+      if (persistToIdb && rawArray.length >= 100) {
+        idbSet("exercises_dataset_v1", rawArray);
+      }
+
+      renderMusclePillStrip();
+      renderExercisePanel();
+      renderWeeklyPlan();
+    }
+
+    async function loadDatasetAutomatically() {
+      // 1. Mount built-in starter set immediately so UI is never blank
+      mountDataset(STARTER_EXERCISES, "Saved on this device", false);
+
+      // 2. Check IndexedDB for previously cached 1,324 exercises (instant 0ms offline startup)
+      const cachedExercises = await idbGet("exercises_dataset_v1");
+      if (Array.isArray(cachedExercises) && cachedExercises.length > 0) {
+        mountDataset(cachedExercises, `Offline Ready · ${cachedExercises.length.toLocaleString()} moves`, false);
+        if (!navigator.onLine) return;
+      }
+
+      // 3. Try local ./data/exercises.json first
+      try {
+        const localRes = await fetch("./data/exercises.json", { cache: "no-cache" });
+        if (localRes.ok) {
+          const json = await localRes.json();
+          if (Array.isArray(json) && json.length > 0) {
+            mountDataset(json, `Offline Ready · ${json.length.toLocaleString()} moves`, true);
+            return;
+          }
+        }
+      } catch (e) {}
+
+      // 4. Try jsDelivr / GitHub CDN for all 1,324 records and save to IndexedDB
+      if (!cachedExercises || cachedExercises.length < 1000) {
+        await syncDatasetFromCDN(false);
+      }
+    }
+
+    async function syncDatasetFromCDN(notifyUser = false) {
+      const urls = [
+        "https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/data/exercises.json",
+        "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/data/exercises.json"
+      ];
+      for (const url of urls) {
+        try {
+          const res = await fetch(url);
+          if (res.ok) {
+            const json = await res.json();
+            if (Array.isArray(json) && json.length > 0) {
+              mountDataset(json, `Offline Ready · ${json.length.toLocaleString()} moves`, true);
+              if (notifyUser) {
+                document.getElementById("dataset-popover").classList.remove("is-open");
+              }
+              return;
+            }
+          }
+        } catch (err) {}
+      }
+    }
+
+    // =========================================================================
+    // 8. EXERCISE PANEL & FILTERING
+    // =========================================================================
+    function selectMuscle(muscleKey) {
+      if (!muscleCatalog[muscleKey]) return;
+      state.selectedMuscle = muscleKey;
+      state.scope = "muscle";
+      document.getElementById("scope-muscle-btn").classList.add("is-active");
+      document.getElementById("scope-all-btn").classList.remove("is-active");
+      syncSelectedMuscleHighlight();
+      renderMusclePillStrip();
+      renderExercisePanel();
+    }
+
+    function renderMusclePillStrip() {
+      const strip = document.getElementById("muscle-pill-strip");
+      if (!strip) return;
+
+      const counts = {};
+      Object.keys(muscleCatalog).forEach(k => (counts[k] = 0));
+      state.exercises.forEach(ex => {
+        ex.muscles.forEach(m => {
+          if (counts[m] !== undefined) counts[m]++;
+        });
+      });
+
+      strip.innerHTML = Object.entries(muscleCatalog).map(([key, meta]) => {
+        const active = state.scope === "muscle" && state.selectedMuscle === key;
+        return `
+          <button type="button" class="muscle-pill-btn ${active ? "is-active" : ""}" onclick="selectMuscle('${key}')">
+            <span>${meta.label}</span>
+            <small>${counts[key] || 0}</small>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function renderEquipmentBar() {
+      const bar = document.getElementById("equipment-bar");
+      if (!bar) return;
+      bar.innerHTML = EQUIPMENT_FILTERS.map(eq => `
+        <button type="button" class="equip-chip ${state.equipment === eq.id ? "is-active" : ""}" data-equip="${eq.id}">
+          ${eq.label}
+        </button>
+      `).join("");
+
+      bar.querySelectorAll(".equip-chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.equipment = btn.getAttribute("data-equip");
+          renderEquipmentBar();
+          renderExercisePanel();
+        });
+      });
+    }
+
+    function getPrescriptionText() {
+      if (state.goal === "strength") return "4–5 sets · 4–6 reps · 120s rest";
+      if (state.goal === "hypertrophy") return "4 sets · 8–12 reps · 75s rest";
+      if (state.goal === "mobility") return "3 sets · 12–15 controlled reps";
+      return "3–4 sets · 10–12 reps · 60s rest";
+    }
+
+    function renderExercisePanel() {
+      const meta = muscleCatalog[state.selectedMuscle] || muscleCatalog.obliques;
+      document.getElementById("muscle-kicker").textContent = state.scope === "all" ? "ALL 17 REGIONS · FULL ATLAS" : meta.kicker;
+      document.getElementById("muscle-title").textContent = state.scope === "all" ? "All Movements" : meta.label;
+      document.getElementById("muscle-copy").textContent = meta.copy;
+
+      const q = state.search.trim().toLowerCase();
+      state.filteredExercises = state.exercises.filter(ex => {
+        if (state.scope === "muscle" && !ex.muscles.includes(state.selectedMuscle)) return false;
+        if (state.equipment !== "any" && ex.equipmentKey !== state.equipment) return false;
+        if (state.difficulty !== "all" && ex.level !== state.difficulty) return false;
+        if (q) {
+          const hay = `${ex.id} ${ex.name} ${ex.target} ${ex.equipment} ${ex.body_part}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      document.getElementById("exercise-count-badge").textContent =
+        `${state.filteredExercises.length.toLocaleString()} movement${state.filteredExercises.length === 1 ? "" : "s"}`;
+
+      state.renderedCount = 0;
+      const grid = document.getElementById("exercise-grid");
+      grid.innerHTML = "";
+      appendNextExerciseBatch();
+    }
+
+    function buildExerciseCardHTML(ex) {
+      const chain = getMediaChain(ex);
+      const steps = (ex.instruction_steps?.en || []).slice(0, 2);
+      const prescription = getPrescriptionText();
+
+      return `
+        <article class="exercise-card">
+          <div>
+            <div class="exercise-visual" onclick="openExerciseModal('${ex.id}')">
+              <img src="${chain[0]}" data-idx="0" onload="handleMediaLoad(this, '${ex.id}')" onerror="handleMediaError(this, '${ex.id}')" loading="lazy" alt="${ex.name.replace(/"/g, "&quot;")}" />
+              <span class="demo-label is-animated"><i></i> ANIMATED GIF · #${ex.id}</span>
+              <span class="expand-pill">10-lang guide ↗</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-meta-row">
+                <span class="meta-tag is-primary">${ex.target}</span>
+                <span class="meta-tag is-equip">${ex.equipment}</span>
+                <span class="meta-tag">${ex.level}</span>
+              </div>
+              <h4 class="exercise-title" onclick="openExerciseModal('${ex.id}')">${ex.name}</h4>
+              <ol class="exercise-steps">
+                ${steps.map(s => `<li>${s}</li>`).join("")}
+              </ol>
+            </div>
+          </div>
+          <div class="exercise-foot">
+            <span class="prescription-text">${prescription}</span>
+            <div class="card-action-btns">
+              <button type="button" class="btn-ghost-sm" onclick="openExerciseModal('${ex.id}')">Guide</button>
+              <button type="button" class="btn-pin-sm" onclick="pinExerciseToDay('${ex.id}')">+ Plan</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function appendNextExerciseBatch() {
+      const grid = document.getElementById("exercise-grid");
+      const info = document.getElementById("pagination-info");
+      const btn = document.getElementById("load-more-btn");
+      const total = state.filteredExercises.length;
+
+      if (total === 0) {
+        grid.innerHTML = `<div style="grid-column: 1 / -1; padding: 32px; text-align: center; color: var(--muted);">No exercises match the current filter. Try switching equipment to "Any" or scope to "All 1,324 exercises".</div>`;
+        info.textContent = "0 exercises shown";
+        btn.style.display = "none";
+        return;
+      }
+
+      const slice = state.filteredExercises.slice(state.renderedCount, state.renderedCount + state.pageSize);
+      grid.insertAdjacentHTML("beforeend", slice.map(buildExerciseCardHTML).join(""));
+      state.renderedCount += slice.length;
+
+      info.textContent = `Showing ${state.renderedCount.toLocaleString()} of ${total.toLocaleString()} movements`;
+      btn.style.display = state.renderedCount < total ? "inline-block" : "none";
+    }
+
+    // =========================================================================
+    // 9. WEEKLY PUSH / PULL SPLIT & DAILY CHECKLIST
+    // =========================================================================
+    function getWeeklyScheduleTemplate() {
+      const d = Number(state.daysPerWeek) || 3;
+      const templates = [
+        { day: "Monday", short: "M", session: "Push A", title: "Push A — Chest, Shoulders & Triceps", muscles: ["chest", "shoulders", "triceps"], active: true },
+        { day: "Tuesday", short: "T", session: d >= 4 ? "Pull A" : "Active recovery", title: d >= 4 ? "Pull A — Lats, Upper Back & Biceps" : "Core, Obliques & Mobility", muscles: d >= 4 ? ["lats", "upper_back", "biceps"] : ["obliques", "abs", "lower_back"], active: d >= 4 },
+        { day: "Wednesday", short: "W", session: d === 3 ? "Pull & Posterior" : "Legs & Core", title: d === 3 ? "Pull & Posterior — Back, Hamstrings & Biceps" : "Lower Body — Quads, Glutes & Calves", muscles: d === 3 ? ["lats", "mid_traps", "hamstrings", "biceps"] : ["quads", "glutes", "calves", "abs"], active: true },
+        { day: "Thursday", short: "T", session: d >= 5 ? "Push B" : "Recovery & Core", title: d >= 5 ? "Push B — Deltoids, Chest & Triceps" : "Rotational Core & Obliques", muscles: d >= 5 ? ["shoulders", "chest", "triceps"] : ["obliques", "abs", "rear_delts"], active: d >= 5 },
+        { day: "Friday", short: "F", session: d === 3 ? "Legs & Core" : "Pull B", title: d === 3 ? "Legs & Core — Quads, Glutes, Hamstrings & Obliques" : "Pull B — Back Thickness, Rear Delts & Forearms", muscles: d === 3 ? ["quads", "glutes", "hamstrings", "obliques"] : ["mid_traps", "rear_delts", "lats", "forearms"], active: true },
+        { day: "Saturday", short: "S", session: d >= 4 ? "Legs B & Glutes" : "Optional conditioning", title: "Posterior Chain — Glutes, Hamstrings & Calves", muscles: ["glutes", "hamstrings", "calves", "abs"], active: d >= 4 },
+        { day: "Sunday", short: "S", session: d === 6 ? "Full Body Control" : "Rest & Mobility", title: "Rest, Decompression & Core Control", muscles: ["abs", "obliques", "lower_back"], active: d === 6 }
+      ];
+      return templates;
+    }
+
+    function renderHeroStartingPoint() {
+      const d = String(state.daysPerWeek).padStart(2, "0");
+      document.getElementById("hero-days-value").textContent = `${d} days / week`;
+      const schedule = getWeeklyScheduleTemplate();
+      const barsEl = document.getElementById("hero-week-bars");
+      barsEl.innerHTML = schedule.map(item => `
+        <div class="hero-week-bar ${item.active ? "is-active" : ""}">
+          <i></i>
+          <span>${item.short}</span>
+        </div>
+      `).join("");
+    }
+
+    function getExercisesForDay(dayIdx, scheduleItem) {
+      if (Array.isArray(state.customDayExercises[dayIdx]) && state.customDayExercises[dayIdx].length > 0) {
+        return state.customDayExercises[dayIdx]
+          .map(id => state.exerciseById.get(String(id)))
+          .filter(Boolean);
+      }
+      const picked = [];
+      const used = new Set();
+      for (const mKey of scheduleItem.muscles) {
+        const matches = state.exercises.filter(ex => ex.muscles.includes(mKey) && !used.has(ex.id));
+        for (const m of matches.slice(0, 2)) {
+          if (picked.length < 5) {
+            picked.push(m);
+            used.add(m.id);
+          }
+        }
+      }
+      return picked;
+    }
+
+    function renderWeeklyPlan() {
+      renderHeroStartingPoint();
+      const schedule = getWeeklyScheduleTemplate();
+      const tbody = document.getElementById("week-table-body");
+      tbody.innerHTML = schedule.map((item, idx) => {
+        const selected = idx === state.selectedDayIndex;
+        const muscleNames = item.muscles.map(m => muscleCatalog[m]?.label || m).join(", ");
+        return `
+          <tr class="${selected ? "is-selected" : ""}" onclick="selectPlanDay(${idx})">
+            <td><span class="day-pill">${item.day.slice(0, 3)}</span></td>
+            <td style="font-weight: 600; color: var(--ink);">${item.session}</td>
+            <td>${muscleNames}</td>
+          </tr>
+        `;
+      }).join("");
+
+      const activeDay = schedule[state.selectedDayIndex] || schedule[0];
+      document.getElementById("day-workout-kicker").textContent = `${activeDay.day.toUpperCase()} · ${activeDay.session.toUpperCase()}`;
+      document.getElementById("day-workout-heading").textContent = activeDay.title;
+
+      const dayMoves = getExercisesForDay(state.selectedDayIndex, activeDay);
+      const doneMap = state.completedByDay[state.selectedDayIndex] || {};
+      let doneCount = 0;
+
+      const listEl = document.getElementById("today-workout-list");
+      listEl.innerHTML = dayMoves.map(ex => {
+        const isDone = !!doneMap[ex.id];
+        if (isDone) doneCount++;
+        const chain = getMediaChain(ex);
+        return `
+          <div class="day-exercise-card ${isDone ? "is-done" : ""}">
+            <div class="day-ex-thumb" onclick="openExerciseModal('${ex.id}')">
+              <img src="${chain[0]}" data-idx="0" onerror="handleMediaError(this, '${ex.id}')" alt="${ex.name.replace(/"/g, "&quot;")}" />
+            </div>
+            <div class="day-ex-info">
+              <h4 onclick="openExerciseModal('${ex.id}')">${ex.name}</h4>
+              <div class="day-ex-meta">${ex.target} · ${ex.equipment}</div>
+            </div>
+            <button type="button" class="day-check-btn" onclick="toggleDayExerciseDone('${ex.id}')" aria-label="Mark completed">✓</button>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("day-progress-badge").textContent = `${doneCount} / ${dayMoves.length} completed`;
+    }
+
+    window.selectPlanDay = function(idx) {
+      state.selectedDayIndex = idx;
+      const schedule = getWeeklyScheduleTemplate();
+      const firstMuscle = schedule[idx]?.muscles?.[0];
+      if (firstMuscle) {
+        selectMuscle(firstMuscle);
+      }
+      renderWeeklyPlan();
+    };
+
+    window.toggleDayExerciseDone = function(exId) {
+      if (!state.completedByDay[state.selectedDayIndex]) {
+        state.completedByDay[state.selectedDayIndex] = {};
+      }
+      const cur = !!state.completedByDay[state.selectedDayIndex][exId];
+      state.completedByDay[state.selectedDayIndex][exId] = !cur;
+      saveStateToStorage();
+      renderWeeklyPlan();
+    };
+
+    window.pinExerciseToDay = function(exId) {
+      const schedule = getWeeklyScheduleTemplate();
+      const currentMoves = getExercisesForDay(state.selectedDayIndex, schedule[state.selectedDayIndex]).map(e => e.id);
+      if (!currentMoves.includes(exId)) {
+        currentMoves.unshift(exId);
+        state.customDayExercises[state.selectedDayIndex] = currentMoves.slice(0, 8);
+        saveStateToStorage();
+        renderWeeklyPlan();
+      }
+      document.getElementById("topbar-status-text").textContent = `Pinned #${exId} to ${schedule[state.selectedDayIndex].day}`;
+    };
+
+    // =========================================================================
+    // 10. 10-LANGUAGE VIDEO / GIF MODAL
+    // =========================================================================
+    window.openExerciseModal = function(exId) {
+      const ex = state.exerciseById.get(String(exId));
+      if (!ex) return;
+      state.modalExId = ex.id;
+      document.getElementById("modal-kicker").textContent = `ANIMATED GIF · #${ex.id} · ${ex.gif_url}`;
+      document.getElementById("modal-title").textContent = ex.name;
+
+      const img = document.getElementById("modal-gif-img");
+      const chain = getMediaChain(ex);
+      img.setAttribute("data-idx", "0");
+      img.onerror = () => window.handleMediaError(img, ex.id);
+      img.src = chain[0];
+
+      document.getElementById("modal-tags").innerHTML = `
+        <span class="meta-tag is-primary">${ex.target}</span>
+        <span class="meta-tag is-equip">${ex.equipment}</span>
+        <span class="meta-tag">${ex.level}</span>
+      `;
+
+      renderModalLangSteps(ex);
+      document.getElementById("exercise-modal").classList.add("is-open");
+    };
+
+    function renderModalLangSteps(ex) {
+      const tabs = document.getElementById("modal-lang-tabs");
+      tabs.innerHTML = LANGUAGES.map(l => `
+        <button type="button" class="lang-tab ${state.modalLang === l.code ? "is-active" : ""}" onclick="setModalLang('${l.code}')">
+          ${l.label}
+        </button>
+      `).join("");
+
+      const steps = ex.instruction_steps?.[state.modalLang] || ex.instruction_steps?.en || [];
+      document.getElementById("modal-steps-list").innerHTML = steps.map(s => `<li>${s}</li>`).join("");
+    }
+
+    window.setModalLang = function(code) {
+      state.modalLang = code;
+      const ex = state.exerciseById.get(String(state.modalExId));
+      if (ex) renderModalLangSteps(ex);
+    };
+
+    // =========================================================================
+    // 11. STORAGE & EVENT LISTENERS
+    // =========================================================================
+    function saveStateToStorage() {
+      try {
+        localStorage.setItem("amit_studio_theme_v1", JSON.stringify({
+          goal: state.goal,
+          level: state.level,
+          daysPerWeek: state.daysPerWeek,
+          completedByDay: state.completedByDay,
+          customDayExercises: state.customDayExercises
+        }));
+      } catch (e) {}
+    }
+
+    function loadStateFromStorage() {
+      try {
+        const raw = localStorage.getItem("amit_studio_theme_v1");
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed.goal) {
+          state.goal = parsed.goal;
+          document.getElementById("goal-select").value = parsed.goal;
+        }
+        if (parsed.level) {
+          state.level = parsed.level;
+          document.getElementById("level-select").value = parsed.level;
+        }
+        if (parsed.daysPerWeek) {
+          state.daysPerWeek = Number(parsed.daysPerWeek);
+          document.getElementById("days-select").value = String(parsed.daysPerWeek);
+        }
+        if (parsed.completedByDay) state.completedByDay = parsed.completedByDay;
+        if (parsed.customDayExercises) state.customDayExercises = parsed.customDayExercises;
+      } catch (e) {}
+    }
+
+    // Pre-cache all GIFs in the user's Mon-Sun Weekly Plan for 100% Airplane Mode gym sessions
+    async function precacheWeeklyPlanGifs() {
+      const btn = document.getElementById("precache-week-gifs-btn");
+      const countEl = document.getElementById("pwa-week-gif-count");
+      const barEl = document.getElementById("pwa-week-progress");
+      const schedule = getWeeklyScheduleTemplate();
+      const uniqueMoves = new Map();
+      schedule.forEach((dayItem, idx) => {
+        getExercisesForDay(idx, dayItem).forEach((ex) => {
+          if (ex) uniqueMoves.set(ex.id, ex);
+        });
+      });
+
+      const list = Array.from(uniqueMoves.values());
+      if (!list.length) return;
+      btn.disabled = true;
+      let done = 0;
+
+      for (const ex of list) {
+        const relGif = (ex.gif_url || `videos/${ex.id}-${ex.media_id}.gif`).replace(/^\.\//, "");
+        const cdnUrl = `https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/${relGif}`;
+        await cacheMediaUrlOffline(cdnUrl, relGif);
+        done++;
+        const pct = Math.round((done / list.length) * 100);
+        if (barEl) barEl.style.width = `${pct}%`;
+        if (countEl) countEl.textContent = `${done} / ${list.length} Cached`;
+      }
+
+      btn.disabled = false;
+      btn.textContent = `✓ All ${list.length} Weekly Plan GIFs Ready Offline`;
+      document.getElementById("pwa-pill-badge").textContent = `${list.length}+ GIFs Offline`;
+      renderExercisePanel();
+      renderWeeklyPlan();
+    }
+
+    // Optional background pre-cacher for all 1,324 GIFs
+    async function togglePrecacheAllGifs() {
+      const btn = document.getElementById("precache-all-gifs-btn");
+      const countEl = document.getElementById("pwa-all-gif-count");
+      const barEl = document.getElementById("pwa-all-progress");
+
+      if (state.batchCachingAll) {
+        state.batchCachingAll = false;
+        btn.textContent = "▶ Resume Pre-Caching All 1,324 GIFs";
+        return;
+      }
+
+      state.batchCachingAll = true;
+      btn.textContent = "⏸ Pause Background Caching";
+      const total = state.exercises.length;
+      let done = 0;
+
+      for (let i = 0; i < total; i += 4) {
+        if (!state.batchCachingAll) break;
+        const batch = state.exercises.slice(i, i + 4);
+        await Promise.allSettled(
+          batch.map((ex) => {
+            const relGif = (ex.gif_url || `videos/${ex.id}-${ex.media_id}.gif`).replace(/^\.\//, "");
+            if (state.localBlobs.has(relGif)) return Promise.resolve(true);
+            const cdnUrl = `https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/${relGif}`;
+            return cacheMediaUrlOffline(cdnUrl, relGif);
+          })
+        );
+        done = Math.min(total, i + 4);
+        const pct = Math.round((done / total) * 100);
+        if (barEl) barEl.style.width = `${pct}%`;
+        if (countEl) countEl.textContent = `${done.toLocaleString()} / ${total.toLocaleString()} Cached`;
+      }
+
+      if (done >= total) {
+        state.batchCachingAll = false;
+        btn.textContent = `✓ All ${total.toLocaleString()} GIFs Cached Offline`;
+      }
+    }
+
+    function downloadTextFile(filename, content, mimeType = "text/plain") {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    window.copyCommandText = function(codeId, btnEl) {
+      const text = document.getElementById(codeId)?.textContent || "";
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        const prev = btnEl.textContent;
+        btnEl.textContent = "Copied!";
+        setTimeout(() => (btnEl.textContent = prev), 1400);
+      } catch (e) {}
+      ta.remove();
+    };
+
+    function updateNetworkBadge() {
+      const dot = document.getElementById("network-status-dot");
+      const txt = document.getElementById("topbar-status-text");
+      if (!navigator.onLine) {
+        if (dot) dot.style.background = "#e95078";
+        if (txt) txt.textContent = "Offline Mode · Using local vault";
+      } else {
+        if (dot) dot.style.background = "#8ba0ff";
+        if (txt) txt.textContent = `Offline Ready · ${state.exercises.length.toLocaleString()} moves`;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      setupIosTouchIconAndManifest();
+      registerOfflineServiceWorker();
+      await hydrateCachedGifsFromCacheStorage();
+      loadStateFromStorage();
+      renderEquipmentBar();
+      loadMuscleMapAssets();
+      loadDatasetAutomatically();
+
+      window.addEventListener("online", updateNetworkBadge);
+      window.addEventListener("offline", updateNetworkBadge);
+
+      // PWA Modal Listeners
+      const pwaModal = document.getElementById("pwa-modal");
+      document.getElementById("open-pwa-modal-btn").addEventListener("click", () => {
+        pwaModal.classList.add("is-open");
+      });
+      document.getElementById("pwa-modal-close-btn").addEventListener("click", () => {
+        pwaModal.classList.remove("is-open");
+      });
+      document.getElementById("precache-week-gifs-btn").addEventListener("click", precacheWeeklyPlanGifs);
+      document.getElementById("precache-all-gifs-btn").addEventListener("click", togglePrecacheAllGifs);
+      document.getElementById("download-sw-btn").addEventListener("click", () => {
+        downloadTextFile("sw.js", getServiceWorkerSourceCode(), "application/javascript");
+      });
+      document.getElementById("download-manifest-btn").addEventListener("click", () => {
+        const manifestJson = JSON.stringify({
+          name: "AMIT — Workout Studio",
+          short_name: "AMIT",
+          start_url: "./index.html",
+          display: "standalone",
+          background_color: "#08090d",
+          theme_color: "#08090d"
+        }, null, 2);
+        downloadTextFile("manifest.json", manifestJson, "application/manifest+json");
+      });
+
+      // Controls
+      document.getElementById("goal-select").addEventListener("change", (e) => {
+        state.goal = e.target.value;
+        saveStateToStorage();
+        renderExercisePanel();
+      });
+      document.getElementById("level-select").addEventListener("change", (e) => {
+        state.level = e.target.value;
+        saveStateToStorage();
+      });
+      document.getElementById("days-select").addEventListener("change", (e) => {
+        state.daysPerWeek = Number(e.target.value);
+        saveStateToStorage();
+        renderWeeklyPlan();
+      });
+
+      document.getElementById("exercise-search").addEventListener("input", (e) => {
+        state.search = e.target.value || "";
+        renderExercisePanel();
+      });
+
+      document.getElementById("difficulty-select").addEventListener("change", (e) => {
+        state.difficulty = e.target.value;
+        renderExercisePanel();
+      });
+
+      document.getElementById("scope-muscle-btn").addEventListener("click", () => {
+        state.scope = "muscle";
+        document.getElementById("scope-muscle-btn").classList.add("is-active");
+        document.getElementById("scope-all-btn").classList.remove("is-active");
+        syncSelectedMuscleHighlight();
+        renderMusclePillStrip();
+        renderExercisePanel();
+      });
+
+      document.getElementById("scope-all-btn").addEventListener("click", () => {
+        state.scope = "all";
+        document.getElementById("scope-all-btn").classList.add("is-active");
+        document.getElementById("scope-muscle-btn").classList.remove("is-active");
+        syncSelectedMuscleHighlight();
+        renderMusclePillStrip();
+        renderExercisePanel();
+      });
+
+      document.getElementById("load-more-btn").addEventListener("click", appendNextExerciseBatch);
+
+      // Modal close & pin
+      document.getElementById("modal-close-btn").addEventListener("click", () => {
+        document.getElementById("exercise-modal").classList.remove("is-open");
+      });
+      document.getElementById("modal-pin-btn").addEventListener("click", () => {
+        if (state.modalExId) {
+          window.pinExerciseToDay(state.modalExId);
+          document.getElementById("exercise-modal").classList.remove("is-open");
+        }
+      });
+
+      // Local Dataset Popover
+      const popover = document.getElementById("dataset-popover");
+      document.getElementById("dataset-menu-btn").addEventListener("click", () => {
+        popover.classList.toggle("is-open");
+      });
+      document.getElementById("dataset-popover-close").addEventListener("click", () => {
+        popover.classList.remove("is-open");
+      });
+      document.getElementById("pick-folder-btn").addEventListener("click", () => {
+        document.getElementById("local-folder-input").click();
+      });
+      document.getElementById("pick-file-btn").addEventListener("click", () => {
+        document.getElementById("local-file-input").click();
+      });
+      document.getElementById("sync-cdn-btn").addEventListener("click", () => {
+        syncDatasetFromCDN(true);
+      });
+
+      // Local Folder Input Handler
+      document.getElementById("local-folder-input").addEventListener("change", async (e) => {
+        const files = Array.from(e.target.files || []);
+        if (!files.length) return;
+        let jsonFile = null;
+        let gifCount = 0;
+        for (const f of files) {
+          const rel = (f.webkitRelativePath || f.name).replace(/\\/g, "/");
+          const lower = f.name.toLowerCase();
+          if (rel.endsWith("data/exercises.json") || lower === "exercises.json") {
+            jsonFile = f;
+          } else if (lower.endsWith(".gif") || lower.endsWith(".jpg")) {
+            const url = URL.createObjectURL(f);
+            state.localBlobs.set(f.name, url);
+            if (rel.includes("/videos/")) {
+              state.localBlobs.set("videos/" + f.name, url);
+              gifCount++;
+            } else if (rel.includes("/images/")) {
+              state.localBlobs.set("images/" + f.name, url);
+            }
+          }
+        }
+        if (jsonFile) {
+          try {
+            const parsed = JSON.parse(await jsonFile.text());
+            mountDataset(parsed, `Loaded ${parsed.length.toLocaleString()} moves + ${gifCount} local GIFs`);
+          } catch (err) {}
+        } else {
+          renderExercisePanel();
+          renderWeeklyPlan();
+          document.getElementById("topbar-status-text").textContent = `Indexed ${gifCount} local GIFs`;
+        }
+        popover.classList.remove("is-open");
+      });
+
+      // Single JSON / HTML File Handler
+      document.getElementById("local-file-input").addEventListener("change", async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        try {
+          const text = await file.text();
+          let parsed = null;
+          if (text.trim().startsWith("[")) {
+            parsed = JSON.parse(text);
+          } else {
+            const m = text.match(/(?:const|let|var)\s+EXERCISES\s*=\s*(\[[\s\S]*?\]);/);
+            if (m?.[1]) parsed = JSON.parse(m[1]);
+          }
+          if (Array.isArray(parsed)) {
+            mountDataset(parsed, `Loaded ${parsed.length.toLocaleString()} from ${file.name}`);
+          }
+        } catch (err) {}
+        popover.classList.remove("is-open");
+      });
+    });
+  </script>
+</body>
+</html>
